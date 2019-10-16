@@ -4,6 +4,11 @@ vuetify 2 系を使ってみたかったが為に 旧リポジトリ(test_vue)�
 ## Setup
 ### インストール
 ```npm install```
+
+## ビルド資材いじりたかったら...
+```npm run build```
+
 ### 起動
 ```npm run start```
-* 起動後、localhost:8080 にアクセスできればOK
+* 起動後、localhost:8081 にアクセスできればOK
+()
