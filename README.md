@@ -10,5 +10,5 @@ vuetify 2 系を使ってみたかったが為に 旧リポジトリ(test_vue)�
 
 ### 起動
 ```npm run start```
-* 起動後、localhost:8081 にアクセスできればOK
-()
+* 起動後、localhost:8081 にアクセスできればOK  
+(もしくは8080)
