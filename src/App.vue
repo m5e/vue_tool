@@ -8,6 +8,7 @@
       <v-btn text @click="swichPage(1)">Todo</v-btn>
       <v-btn text @click="swichPage(2)">Calendar</v-btn>
       <v-btn text @click="swichPage(3)">picture</v-btn>
+      <v-btn text @click="swichPage(4)">Api</v-btn>
     </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -15,6 +16,7 @@
       <TodoList v-if="page === 1"/>
       <Calendar v-if="page === 2"/>
       <Picture v-if="page === 3"/>
+      <Api v-if="page === 4"/>
     </v-content>
   </v-app>
 </template>
@@ -24,6 +26,7 @@ import DateTime from './components/DateTime';
 import Calendar from './components/Calendar';
 import TodoList from './components/TodoList';
 import Picture from './components/Picture';
+import Api from './components/Api';
 
 export default {
   name: 'App',
@@ -31,10 +34,11 @@ export default {
     DateTime,
     Calendar,
     TodoList,
-    Picture
+    Picture,
+    Api
   },
   data: () => ({
-    page: 0,
+    page: 0
   }),
   mounted () {
     this.swichPage()

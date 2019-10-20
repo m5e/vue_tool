@@ -75,7 +75,7 @@ export default {
   },
   mounted () {
     this.setDate()
-      setInterval(() => this.setDate(), 1000)
+    setInterval(() => this.setDate(), 1000)
   },
   methods: {
     setDate () {

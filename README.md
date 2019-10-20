@@ -1,14 +1,24 @@
 # vue_tool
-vuetify 2 系を使ってみたかったが為に 旧リポジトリ(test_vue)からお引越し
 
-## Setup
-### インストール
-```npm install```
+## Project setup
+```
+npm install
+```
 
-## ビルド資材いじりたかったら...
-```npm run build```
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-### 起動
-```npm run start```
-* 起動後、localhost:8081 にアクセスできればOK  
-(もしくは8080)
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
