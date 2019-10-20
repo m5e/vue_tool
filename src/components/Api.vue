@@ -19,7 +19,7 @@
 import YouTube from './../../node_modules/youtube-node'
 
 const youtube = new YouTube()
-youtube.setKey('apikey')
+youtube.setKey('取得した自身のapikey')
 
 export default {
   data: () => ({
