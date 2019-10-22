@@ -6,6 +6,7 @@
       <v-text-field
         v-model="keyWord"
         label="検索"
+        @keydown.enter="searchYoutube(keyWord)"
         outlined>
       </v-text-field>
     </v-col>
@@ -22,7 +23,13 @@
       </li>
       <li v-else-if="index > 0">
         <p>{{item.snippet.title}}</p>
-        <img :src="item.snippet.thumbnails.medium.url"/>
+        <iframe
+          width="560"
+          height="315"
+          :src='`https://www.youtube.com/embed/${item.id.videoId}`'
+          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
       </li>
     </ul>
   </v-container>
@@ -38,7 +45,7 @@ export default {
   data: () => ({
     showResult: false,
     result: '',
-    keyWord:''
+    keyWord: ''
   }),
   computed: {
   //
