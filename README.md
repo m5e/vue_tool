@@ -1,24 +1,19 @@
 # vue_tool
 
-## Project setup
+## セットアップ
+1. 下記コマンド実行
 ```
 npm install
 ```
+2. localhost8080にアクセスしてつながればOK
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
+### ビルド回りをいじりたいとき(前準備)
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### ファイルにフォーマット効かせたいとき
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
