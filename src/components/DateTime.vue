@@ -1,34 +1,34 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex grid-list-md text-xs-center md6>
+      <v-flex grid-list-md text-center md2>
         <v-card dark color="blue-grey lighten-1">
           <v-card-text class="px-0 time year">{{ year }}</v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-xs-center md6>
+      <v-flex grid-list-md text-center md2>
         <v-card dark color="blue-grey lighten-1">
           <v-card-text class="px-0 time month">{{ month }}</v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-xs-center md6>
+      <v-flex grid-list-md text-center md2>
         <v-card dark color="blue-grey lighten-1">
           <v-card-text class="px-0 time day">{{ day }}</v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-xs-center md6>
+      <v-flex grid-list-md text-center md2>
         <v-card dark color="blue-grey lighten-1">
           <v-card-text class="px-0 time hour">{{ hours }}</v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-xs-center md6>
+      <v-flex grid-list-md text-center md2>
         <v-card dark color="blue-grey lighten-1">
           <v-card-text class="px-0 time minutes">
             {{ minutes }}
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-xs-center md6>
+      <v-flex grid-list-md text-center md2>
         <v-card dark color="blue-grey lighten-1">
           <v-card-text class="px-0 time seconds">
             {{ seconds }}
