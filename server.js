@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 let result = '';
-axios.get('http://weather.livedoor.com/forecast/webservice/json/v1?city=400040')
+axios.get('http://weather.livedoor.com/forecast/webservice/json/v1?city=130010')
 .then(response => {
   result = response;
 });
