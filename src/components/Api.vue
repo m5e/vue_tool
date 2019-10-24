@@ -51,7 +51,7 @@ export default {
   }),
   computed: {
   //
-},
+  },
   mounted () {
     this.searchYoutubeResult()
   },
