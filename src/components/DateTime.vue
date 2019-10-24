@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 const zeroPadding = (num, digit) => {
     return (Array(digit).join('0') + num).slice(-digit)
 }
@@ -47,6 +49,7 @@ const zeroPadding = (num, digit) => {
 export default {
   data: () => ({
     date: new Date(),
+    wetherResult: ''
   }),
   computed: {
     year () {
@@ -74,12 +77,24 @@ export default {
     },
   },
   mounted () {
+    // watch
     this.setDate()
     setInterval(() => this.setDate(), 1000)
+    // weather
+    this.getWether()
   },
   methods: {
+    // watch
     setDate () {
       this.date = new Date()
+    },
+   // weather
+    getWether () {
+      axios.get('http://localhost:3000/weather').then((result) => {
+        this.wetherResult = result.data
+      }).catch(err => {
+        console.log(err.response)
+      });
     }
   }
 };

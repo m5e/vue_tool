@@ -1,15 +1,18 @@
 const axios = require('axios');
 const express = require('express');
-
 const app = express();
+// port番号
+const port = 3000;
 
+// 天気予報情報取得
 let result = '';
 axios.get('http://weather.livedoor.com/forecast/webservice/json/v1?city=130010')
 .then(response => {
   result = response;
 });
 
-app.get('/', (req, res) => {
+app.get('/weather', (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.json({
     location: result.data.location,
     forecasts:result.data.forecasts,
@@ -19,7 +22,6 @@ app.get('/', (req, res) => {
   });
 
   if (!result.data.description.text) {
-
     res.status(404).json({
       error: {
           message: 'Not data found.'
@@ -28,4 +30,5 @@ app.get('/', (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log('Listening on port 3000'));
+// サーバ起動
+app.listen(port, () => console.log('Listening on port 3000'));
