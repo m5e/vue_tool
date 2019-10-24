@@ -46,6 +46,7 @@ youtube.setKey('apikey')
 export default {
   data: () => ({
     showResult: false,
+    // 検索結果
     result: '',
     keyWord: ''
   }),
