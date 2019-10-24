@@ -42,6 +42,7 @@
           <li>
             <p>{{list.date}}</p>
             <p>{{list.dateLabel}}の天気は{{list.telop}}</p>
+            <img :src="list.image.url"/>
           </li>
         </ul>
       </div>
@@ -60,9 +61,13 @@ const zeroPadding = (num, digit) => {
 export default {
   data: () => ({
     date: new Date(),
+    // 画面側で使用するための一時格納用
     weatherResult: '',
+    // webサーバから取得したデータ
     resultForecasts: [],
+    // 直近3日の天気予報情報
     weatherForecasts: [],
+    // 対象エリア情報
     area:''
   }),
   computed: {
