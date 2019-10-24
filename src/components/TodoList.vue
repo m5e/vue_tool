@@ -77,7 +77,7 @@
                 v-if="task.done"
                 color="success"
               >
-                done!
+                ✓
               </v-icon>
             </v-scroll-x-transition>
           </v-list-item>
@@ -99,7 +99,39 @@ export default {
           done: false,
           text: 'task2',
         },
-      ],
+        {
+          done: false,
+          text: 'task3',
+        },
+        {
+          done: false,
+          text: 'task4',
+        },
+        {
+          done: false,
+          text: 'task5',
+        },
+        {
+          done: false,
+          text: 'task6',
+        },
+        {
+          done: false,
+          text: 'task7',
+        },
+        {
+          done: false,
+          text: 'task8',
+        },
+        {
+          done: false,
+          text: 'task9',
+        },
+        {
+          done: false,
+          text: 'task10',
+        },
+],
       task: null,
   }),
   computed: {

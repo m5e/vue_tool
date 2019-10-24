@@ -2,52 +2,55 @@
   <v-container>
     <v-layout row>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="blue-grey lighten-1">
+        <v-card dark color="teal darken-1">
           <v-card-text class="px-0 time year">{{ year }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="blue-grey lighten-1">
+        <v-card dark color="teal darken-1">
           <v-card-text class="px-0 time month">{{ month }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="blue-grey lighten-1">
+        <v-card dark color="teal darken-1">
           <v-card-text class="px-0 time day">{{ day }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="blue-grey lighten-1">
+        <v-card dark color="teal darken-1">
           <v-card-text class="px-0 time hour">{{ hours }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="blue-grey lighten-1">
+        <v-card dark color="teal darken-1">
           <v-card-text class="px-0 time minutes">
             {{ minutes }}
           </v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="blue-grey lighten-1">
+        <v-card dark color="teal darken-1">
           <v-card-text class="px-0 time seconds">
             {{ seconds }}
           </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
-    <p>{{this.area}}のお天気</p>
-      <div v-for="forcast in this.weatherForecasts" :key="forcast.dateLabel">
-        <ul v-for="list in forcast" :key="list.dateLabel">
-          <li>
-            <p>{{list.date}}</p>
-            <p>{{list.dateLabel}}の天気は{{list.telop}}</p>
-            <img :src="list.image.url"/>
-          </li>
-        </ul>
-      </div>
-      <p>詳細</p>
-      <p>{{weatherResult.text}}</p>
+    <br/>
+    <h2>{{ this.area }}のお天気</h2>
+    <v-container class="d-flex md-6" v-for="forcast in this.forecastLists" :key="forcast.dateLabel">
+      <v-row v-for="data in forcast" :key="data.dateLabel">
+        <v-col cols="12">
+          <v-card outlined tile>
+            <p class="font-weight-bold">{{ data.date }}</p>
+            <p>{{ data.dateLabel }}の天気は{{ data.telop }}</p>
+            <v-img :src="data.image.url" width="60" height="45"/>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+    <p class="title">説明</p>
+    <v-card-text class="subtitle-1" style="white-space: pre-line;">{{ weatherResult.text }}</v-card-text>
   </v-container>
 </template>
 
@@ -61,13 +64,13 @@ const zeroPadding = (num, digit) => {
 export default {
   data: () => ({
     date: new Date(),
-    // 画面側で使用するための一時格納用
-    weatherResult: '',
     // webサーバから取得したデータ
+    weatherResult: '',
+    // 予測データ
     resultForecasts: [],
-    // 直近3日の天気予報情報
-    weatherForecasts: [],
-    // 対象エリア情報
+    // 整形後の予測データ
+    forecastLists: [],
+    // 対象エリア
     area:''
   }),
   computed: {
@@ -100,8 +103,8 @@ export default {
     this.setDate()
     setInterval(() => this.setDate(), 1000)
     // weather
-    this.getWether()
-    this.shapingForecast()
+    this.getWetherData()
+    this.shapingForecastData()
   },
   methods: {
     // watch
@@ -109,19 +112,21 @@ export default {
       this.date = new Date()
     },
    // weather
-    getWether () {
+    getWetherData () {
       axios.get('http://localhost:3000/weather').then((result) => {
         this.weatherResult = result.data
         this.area = result.data.location.prefecture
         this.resultForecasts.push(result.data.forecasts)
-        this.shapingForecast()
+
+        //予測データを整形
+        this.shapingForecastData()
       }).catch(err => {
         console.log(err.response)
       });
     },
-    shapingForecast () {
+    shapingForecastData () {
       this.resultForecasts.forEach((re,index) => {
-        this.weatherForecasts.push(this.resultForecasts[index])
+        this.forecastLists.push(this.resultForecasts[index])
       })
     }
   }
