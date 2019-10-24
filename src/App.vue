@@ -46,6 +46,7 @@ export default {
     this.swichPage()
   },
   methods: {
+    // ページ切替え
     swichPage (num) {
       this.page = num
     }

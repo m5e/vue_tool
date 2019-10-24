@@ -11,14 +11,15 @@ axios.get('http://weather.livedoor.com/forecast/webservice/json/v1?city=130010')
   result = response;
 });
 
+//取得結果を渡す
 app.get('/weather', (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.json({
     location: result.data.location,
-    forecasts:result.data.forecasts,
+    forecasts: result.data.forecasts,
     text: result.data.description.text,
-    publicTime:result.data.publicTime,
-    copyright:result.data.copyright
+    publicTime: result.data.publicTime,
+    copyright: result.data.copyright
   });
 
   if (!result.data.description.text) {
