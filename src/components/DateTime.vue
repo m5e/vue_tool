@@ -36,6 +36,17 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <p>{{this.area}}のお天気</p>
+      <div v-for="forcast in this.weatherForecasts" :key="forcast.dateLabel">
+        <ul v-for="list in forcast" :key="list.dateLabel">
+          <li>
+            <p>{{list.date}}</p>
+            <p>{{list.dateLabel}}の天気は{{list.telop}}</p>
+          </li>
+        </ul>
+      </div>
+      <p>詳細</p>
+      <p>{{weatherResult.text}}</p>
   </v-container>
 </template>
 
@@ -49,7 +60,10 @@ const zeroPadding = (num, digit) => {
 export default {
   data: () => ({
     date: new Date(),
-    wetherResult: ''
+    weatherResult: '',
+    resultForecasts: [],
+    weatherForecasts: [],
+    area:''
   }),
   computed: {
     year () {
@@ -82,6 +96,7 @@ export default {
     setInterval(() => this.setDate(), 1000)
     // weather
     this.getWether()
+    this.shapingForecast()
   },
   methods: {
     // watch
@@ -91,10 +106,18 @@ export default {
    // weather
     getWether () {
       axios.get('http://localhost:3000/weather').then((result) => {
-        this.wetherResult = result.data
+        this.weatherResult = result.data
+        this.area = result.data.location.prefecture
+        this.resultForecasts.push(result.data.forecasts)
+        this.shapingForecast()
       }).catch(err => {
         console.log(err.response)
       });
+    },
+    shapingForecast () {
+      this.resultForecasts.forEach((re,index) => {
+        this.weatherForecasts.push(this.resultForecasts[index])
+      })
     }
   }
 };
@@ -102,20 +125,17 @@ export default {
 <style>
 .fab-container {
   position: fixed;
-  bottom: 0;
   right: 0;
+  bottom: 0;
 }
-
 .time {
   font-size: 20px;
 }
-
 .time:before {
   position: absolute;
   right: 5px;
   bottom: 1px;
 }
-
 .year:before {
   font-size: 15px;
   content: "year";
