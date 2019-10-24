@@ -48,6 +48,7 @@ export default {
     showResult: false,
     // 検索結果
     result: '',
+    // 検索ワード
     keyWord: ''
   }),
   computed: {
