@@ -5,11 +5,11 @@
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
         <v-toolbar-title>さくせいちゅう</v-toolbar-title>
         <v-toolbar-items>
-          <v-btn text @click="swichPage(0)">DateTime</v-btn>
-          <v-btn text @click="swichPage(1)">Todo</v-btn>
-          <v-btn text @click="swichPage(2)">Calendar</v-btn>
-          <v-btn text @click="swichPage(3)">picture</v-btn>
-          <v-btn text @click="swichPage(4)">Api</v-btn>
+          <v-btn text @click="switchPage(0)">DateTime</v-btn>
+          <v-btn text @click="switchPage(1)">Todo</v-btn>
+          <v-btn text @click="switchPage(2)">Calendar</v-btn>
+          <v-btn text @click="switchPage(3)">picture</v-btn>
+          <v-btn text @click="switchPage(4)">Api</v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-content>
@@ -43,11 +43,11 @@ export default {
     page: 0
   }),
   mounted () {
-    this.swichPage()
+    this.switchPage()
   },
   methods: {
     // ページ切替え
-    swichPage (num) {
+    switchPage (num) {
       this.page = num
     }
   }
