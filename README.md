@@ -5,19 +5,25 @@
 ```
 npm install
 ```
-2. 下記コマンドを実行して起動
+2. 下記2つのコマンドを実行して起動
+(それぞれ別ターミナルで実行)
 ```
-npm run start
+npm run st
 ```
-localhost8080にアクセスしてつながればOK
 
+```
+npm run se
+```
+
+localhost8080にアクセスしてつながればOK
+(8080が使用されてたらおそらく8081)
 
 ### ビルド回りをいじりたいとき(前準備)
 ```
-npm run build
+npm run bu
 ```
 
 ### ファイルにフォーマット効かせたいとき
 ```
-npm run lint
+npm run li
 ```
