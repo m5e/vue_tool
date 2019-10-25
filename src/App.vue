@@ -4,22 +4,22 @@
       <v-navigation-drawer v-model="isShowDrawer" absolute temporary>
         <p>
           <v-icon class="material-icons" large>account_box</v-icon>
-          ss
+          アカウント
         </p>
         <p>
           <v-icon class="material-icons" large>supervised_user_circle</v-icon>
-          ss
+          作業報告書
         </p>
         <p>
           <v-icon class="material-icons" large>subway</v-icon>
-          ss
+          電車情報
         </p>
         <p>
           <v-icon class="material-icons" large>help_outline</v-icon>
-          ss
+          ヘルプ
         </p>
       </v-navigation-drawer>
-      <v-toolbar>
+      <v-toolbar color="teal accent-4" style="font">
         <v-app-bar-nav-icon @click.stop="isShowDrawer = !isShowDrawer"></v-app-bar-nav-icon>
         <v-toolbar-title>さくせいちゅう</v-toolbar-title>
         <v-toolbar-items>
@@ -31,11 +31,13 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-content>
+        <v-card>
         <DateTime v-if="page === 0"/>
         <TodoList v-if="page === 1"/>
         <Calendar v-if="page === 2"/>
         <Picture v-if="page === 3"/>
         <Api v-if="page === 4"/>
+        </v-card>
       </v-content>
     </v-app>
   </v-responsive>
@@ -64,6 +66,9 @@ export default {
   }),
   mounted () {
     this.switchPage()
+  },
+  computed: {
+    //
   },
   methods: {
     // ページ切替え

@@ -2,34 +2,34 @@
   <v-container>
     <v-layout row>
       <v-flex grid-list-md text-center md2>
-        <v-card>
+        <v-card color="blue-grey lighten-2">
           <v-card-text class="px-0 time year title">{{ year }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card>
+        <v-card color="blue-grey lighten-2">
           <v-card-text class="px-0 time month title">{{ month }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card>
+        <v-card color="blue-grey lighten-2">
           <v-card-text class="px-0 time day title">{{ day }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card>
+        <v-card color="blue-grey lighten-2">
           <v-card-text class="px-0 time hour title">{{ hours }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card>
+        <v-card color="blue-grey lighten-2">
           <v-card-text class="px-0 time minutes title">
             {{ minutes }}
           </v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card>
+        <v-card color="blue-grey lighten-2">
           <v-card-text class="px-0 time seconds title">
             {{ seconds }}
           </v-card-text>
@@ -40,8 +40,8 @@
     <h2>{{ this.area }}のお天気</h2>
     <v-container class="d-flex md-6" v-for="forcast in this.forecastLists" :key="forcast.dateLabel">
       <v-row v-for="data in forcast" :key="data.dateLabel">
-        <v-col cols="12">
-          <v-card outlined tile>
+        <v-col cols="10">
+          <v-card class="pt-2 pb-3 pl-4" outlined tile>
             <p class="font-weight-bold">{{ data.date }}</p>
             <p>{{ data.dateLabel }}の天気は{{ data.telop }}</p>
             <v-img :src="data.image.url" width="60" height="45"/>
@@ -75,7 +75,6 @@ export default {
     // 対象エリア
     area:''
   }),
-
   computed: {
     year () {
       return this.date.getFullYear()
@@ -101,7 +100,6 @@ export default {
       return map
     },
   },
-
   mounted () {
     // watch
     this.setDate()
@@ -110,7 +108,6 @@ export default {
     this.getWetherData()
     this.shapingForecastData()
   },
-
   methods: {
     // 現在時刻を取得
     setDate () {
