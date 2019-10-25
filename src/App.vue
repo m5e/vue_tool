@@ -1,15 +1,33 @@
 <template>
   <v-responsive :aspect-ratio="16/9">
     <v-app>
+      <v-navigation-drawer v-model="isShowDrawer" absolute temporary>
+        <p>
+          <v-icon class="material-icons" large>account_box</v-icon>
+          ss
+        </p>
+        <p>
+          <v-icon class="material-icons" large>supervised_user_circle</v-icon>
+          ss
+        </p>
+        <p>
+          <v-icon class="material-icons" large>subway</v-icon>
+          ss
+        </p>
+        <p>
+          <v-icon class="material-icons" large>help_outline</v-icon>
+          ss
+        </p>
+      </v-navigation-drawer>
       <v-toolbar>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="isShowDrawer = !isShowDrawer"></v-app-bar-nav-icon>
         <v-toolbar-title>さくせいちゅう</v-toolbar-title>
         <v-toolbar-items>
           <v-btn text @click="switchPage(0)">DateTime</v-btn>
           <v-btn text @click="switchPage(1)">Todo</v-btn>
           <v-btn text @click="switchPage(2)">Calendar</v-btn>
           <v-btn text @click="switchPage(3)">picture</v-btn>
-          <v-btn text @click="switchPage(4)">Api</v-btn>
+          <v-btn text @click="switchPage(4)">Youtube</v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-content>
@@ -40,7 +58,9 @@ export default {
     Api
   },
   data: () => ({
-    page: 0
+    page: 0,
+    //ハンバーガーメニューの表示/非表示を制御
+    isShowDrawer: false
   }),
   mounted () {
     this.switchPage()

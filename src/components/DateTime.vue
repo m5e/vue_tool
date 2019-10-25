@@ -2,35 +2,35 @@
   <v-container>
     <v-layout row>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="teal darken-1">
-          <v-card-text class="px-0 time year">{{ year }}</v-card-text>
+        <v-card>
+          <v-card-text class="px-0 time year title">{{ year }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="teal darken-1">
-          <v-card-text class="px-0 time month">{{ month }}</v-card-text>
+        <v-card>
+          <v-card-text class="px-0 time month title">{{ month }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="teal darken-1">
-          <v-card-text class="px-0 time day">{{ day }}</v-card-text>
+        <v-card>
+          <v-card-text class="px-0 time day title">{{ day }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="teal darken-1">
-          <v-card-text class="px-0 time hour">{{ hours }}</v-card-text>
+        <v-card>
+          <v-card-text class="px-0 time hour title">{{ hours }}</v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="teal darken-1">
-          <v-card-text class="px-0 time minutes">
+        <v-card>
+          <v-card-text class="px-0 time minutes title">
             {{ minutes }}
           </v-card-text>
         </v-card>
       </v-flex>
       <v-flex grid-list-md text-center md2>
-        <v-card dark color="teal darken-1">
-          <v-card-text class="px-0 time seconds">
+        <v-card>
+          <v-card-text class="px-0 time seconds title">
             {{ seconds }}
           </v-card-text>
         </v-card>
@@ -62,6 +62,8 @@ const zeroPadding = (num, digit) => {
 }
 
 export default {
+  inject: ['theme'],
+
   data: () => ({
     date: new Date(),
     // webサーバから取得したデータ
@@ -73,6 +75,7 @@ export default {
     // 対象エリア
     area:''
   }),
+
   computed: {
     year () {
       return this.date.getFullYear()
@@ -98,6 +101,7 @@ export default {
       return map
     },
   },
+
   mounted () {
     // watch
     this.setDate()
@@ -106,17 +110,18 @@ export default {
     this.getWetherData()
     this.shapingForecastData()
   },
+
   methods: {
-    // watch
+    // 現在時刻を取得
     setDate () {
       this.date = new Date()
     },
-   // weather
+   // webサーバから天気予報のデータを取得
     getWetherData () {
-      axios.get('http://localhost:3000/weather').then((result) => {
-        this.weatherResult = result.data
-        this.area = result.data.location.prefecture
-        this.resultForecasts.push(result.data.forecasts)
+      axios.get('http://localhost:3000/weather').then((res) => {
+        this.weatherResult = res.data
+        this.area = res.data.location.prefecture
+        this.resultForecasts.push(res.data.forecasts)
 
         //予測データを整形
         this.shapingForecastData()
