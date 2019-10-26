@@ -1,12 +1,14 @@
 <template>
   <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-container grid-list-sm>
+    <v-flex>
+      <v-text-field></v-text-field>
+      <v-container grid-list-md>
         <v-layout row wrap>
-          <v-flex v-for="n in 12" :key="n" xs4>
+          <v-flex v-for="n in 12" :key="n" md3>
             <v-img
-              :src="`https://picsum.photos/500/300?image=${n * 7 + 10}`"
-              :lazy-src="`https://picsum.photos/10/6?image=${n * 7 + 10}`"
+              class="image"
+              :src="`https://picsum.photos/500/300?image=${n * imageNumber + 10}`"
+              :lazy-src="`https://picsum.photos/10/6?image=${n * imageNumber + 10}`"
               aspect-ratio="1"
             >
               <template v-slot:placeholder>
@@ -25,7 +27,15 @@
 <script>
 export default {
   data: () => ({
-    //
+    imageNumber: 2,
+    min: 1,
+    max: 12
   }),
+  mounted () {
+    // 画像をランダムで表示
+    this.$nextTick(() => {
+      this.imageNumber =  Math.floor(Math.random() * this.max + this.min)
+    })
+  }
 };
 </script>

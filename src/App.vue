@@ -66,6 +66,12 @@ export default {
   }),
   mounted () {
     this.switchPage()
+
+    // 初期表示時、page のマウント後に switchPage() を実行したいので
+    // エレメントのマウント後に実行
+　　this.$nextTick(() => {
+      this.switchPage(0)
+    })
   },
   computed: {
     //
