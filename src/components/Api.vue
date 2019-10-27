@@ -29,8 +29,10 @@
           width="700"
           height="500"
           :src='`https://www.youtube.com/embed/${item.id.videoId}`'
-          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          >
         </iframe>
       </li>
     </ul>
