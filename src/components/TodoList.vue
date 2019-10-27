@@ -43,6 +43,11 @@
       ></v-progress-circular>
     </v-row>
     <v-divider class="mb-4"></v-divider>
+
+    <v-col cols="12">
+      <v-btn @click="deleteTask" color="blue-grey lighten-2">delete</v-btn>
+    </v-col>
+
     <v-card v-if="tasks.length > 0">
       <v-slide-y-transition
         class="py-0"
@@ -110,27 +115,7 @@ export default {
         {
           done: false,
           text: 'task5',
-        },
-        {
-          done: false,
-          text: 'task6',
-        },
-        {
-          done: false,
-          text: 'task7',
-        },
-        {
-          done: false,
-          text: 'task8',
-        },
-        {
-          done: false,
-          text: 'task9',
-        },
-        {
-          done: false,
-          text: 'task10',
-        },
+        }
 ],
       task: null,
   }),
@@ -150,12 +135,19 @@ export default {
   },
   methods: {
     createTask () {
+      if(!this.task) return
+
       this.tasks.push({
         done: false,
         text: this.task
       })
       // 入力欄の初期化
       this.task = null
+    },
+    deleteTask () {
+      this.tasks.forEach((task, index) => {
+        if (task.done) this.tasks.splice(index, 1)
+      })
     }
   }
 };
