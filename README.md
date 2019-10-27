@@ -25,7 +25,7 @@ npm run se
 npm run bu
 ```
 
-### Apply formatting to files
+### When using the formatter
 ```
 npm run li
 ```
