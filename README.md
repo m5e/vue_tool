@@ -1,31 +1,31 @@
 # vue_tool
 
-## セットアップ
-下記コマンド実行
+## Set up
+Next command execution
 ```
 npm install
 ```
-## 起動
-1. 下記2つのコマンドを実行して起動
-(それぞれ別ターミナルで実行)
-* ビルドが成功すると、アクセス先のパスが表示される
+## Start up
+1. Run the following two commands
+(Run two commands on different consoles)
+* If the build is successful, the access path is displayed.
 ```
 npm run st
 ```
-* コンソール上に`Listening on port 3000`というメッセージが表示されればOK
+* It is OK if the message `Listening on port 3000` is displayed on the console.
 ```
 npm run se
 ```
 
-2. 起動成功時にコンソール上に表示されるパスにアクセスし、つながればOK  
-(8080が使用されてたらおそらく8081)
+2. Access the path displayed on the console and if connected, OK
+(If 8080 is used in another app, probably 8081)
 
-### ビルドするとき
+### When building
 ```
 npm run bu
 ```
 
-### ファイルにフォーマット効かせたいとき
+### When using the formatter
 ```
 npm run li
 ```
