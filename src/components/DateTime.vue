@@ -44,7 +44,7 @@
           <v-card class="pt-2 pb-3 pl-4" outlined tile>
             <p class="font-weight-bold">{{ data.date }}</p>
             <p>{{ data.dateLabel }}の天気は{{ data.telop }}</p>
-            <v-img :src="data.image.url" width="60" height="45"/>
+            <v-img :src="data.image.url" width="75" height="45"/>
           </v-card>
         </v-col>
       </v-row>
@@ -127,7 +127,7 @@ export default {
       });
     },
     shapingForecastData () {
-      this.resultForecasts.forEach((re,index) => {
+      this.resultForecasts.forEach((re, index) => {
         this.forecastLists.push(this.resultForecasts[index])
       })
     }

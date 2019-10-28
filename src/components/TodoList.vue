@@ -145,9 +145,10 @@ export default {
       this.task = null
     },
     deleteTask () {
-      this.tasks.forEach((task, index) => {
-        if (task.done) this.tasks.splice(index, 1)
-      })
+      // index が若い順に処理を行うと index がずれて一番最後が残ってしまうため、下から消す
+      for (let i = this.tasks.length - 1; i >= 0; i-- ) {
+        if (this.tasks[i].done) this.tasks.splice(i, 1)
+      }
     }
   }
 };
