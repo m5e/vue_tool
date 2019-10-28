@@ -14,12 +14,8 @@
           <v-icon class="material-icons" large>subway</v-icon>
           電車情報
         </p>
-        <p>
-          <v-icon class="material-icons" large>help_outline</v-icon>
-          ヘルプ
-        </p>
       </v-navigation-drawer>
-      <v-toolbar color="teal accent-4" style="font">
+      <v-toolbar color="teal accent-4">
         <v-app-bar-nav-icon @click.stop="isShowDrawer = !isShowDrawer"></v-app-bar-nav-icon>
         <v-toolbar-title>さくせいちゅう</v-toolbar-title>
         <v-toolbar-items>
@@ -82,5 +78,5 @@ export default {
       this.page = num
     }
   }
-};
+}
 </script>
