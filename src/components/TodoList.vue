@@ -47,6 +47,17 @@
     <v-col cols="12">
       <v-btn @click="deleteTask" color="blue-grey lighten-2">delete</v-btn>
     </v-col>
+      {{ this.snackbar.snackbar }}
+    <v-snackbar v-if="this.snackbar.snackbar" :value="snackbar" color="error" top>
+      {{ this.snackbar.message }}
+      <v-btn
+        color="white"
+        text
+        @click="reset"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
 
     <v-card v-if="tasks.length > 0">
       <v-slide-y-transition
@@ -118,6 +129,10 @@ export default {
         }
 ],
       task: null,
+      snackbar: {
+      snackbar: false,
+      message: '削除対象のタスクが選択されていません'
+      }
   }),
   computed: {
     // 残タスク数を集計
@@ -145,10 +160,24 @@ export default {
       this.task = null
     },
     deleteTask () {
+    console.log('11')
+    const isCompletedTask = this.tasks.some((task) => task.done === true)
+
+    if (!isCompletedTask) {
+      this.snackbar.snackbar = true
+      return
+    }
+    this.snackbar.snackbar = false
+    console.log('isCompletedTask', isCompletedTask)
+
+
       // index が若い順に処理を行うと index がずれて一番最後が残ってしまうため、下から消す
       for (let i = this.tasks.length - 1; i >= 0; i-- ) {
         if (this.tasks[i].done) this.tasks.splice(i, 1)
       }
+    },
+    reset () {
+     this.snackbar.snackbar = false
     }
   }
 };
