@@ -55,8 +55,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 const zeroPadding = (num, digit) => {
     return (Array(digit).join('0') + num).slice(-digit)
 }
@@ -101,10 +99,9 @@ export default {
     },
   },
   mounted () {
-    // watch
     this.setDate()
     setInterval(() => this.setDate(), 1000)
-    // weather
+
     this.getWetherData()
     this.shapingForecastData()
   },
@@ -115,7 +112,7 @@ export default {
     },
    // webサーバから天気予報のデータを取得
     getWetherData () {
-      axios.get('http://localhost:3000/weather').then((res) => {
+      this.$axios.get('http://localhost:3000/weather').then((res) => {
         this.weatherResult = res.data
         this.area = res.data.location.prefecture
         this.resultForecasts.push(res.data.forecasts)

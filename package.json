@@ -6,7 +6,7 @@
     "st": "vue-cli-service serve",
     "bu": "vue-cli-service build",
     "li": "vue-cli-service lint",
-    "se": "node ./server.js"
+    "se": "node ./src/server/index.js"
   },
   "dependencies": {
     "axios": "0.19.0",
