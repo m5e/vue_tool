@@ -97,65 +97,53 @@
 <script>
 export default {
   data: () => ({
-    tasks: [
-        {
-          done: false,
-          text: 'task1',
-        },
-        {
-          done: false,
-          text: 'task2',
-        },
-        {
-          done: false,
-          text: 'task3',
-        },
-        {
-          done: false,
-          text: 'task4',
-        },
-        {
-          done: false,
-          text: 'task5',
-        }
-],
-      task: null,
-      snackbar: {
-        showSnackbar: false,
-        message: '削除対象のタスクが選択されていません',
-        timeout: 2000
-      }
+    // ローカルストレージへ保存する際のキー名
+    STRAGE_KEY: 'vue-tasks-key',
+    tasks: [],
+    task: null,
+    snackbar: {
+      showSnackbar: false,
+      message: '削除対象のタスクが選択されていません',
+      timeout: 2000
+    }
   }),
   computed: {
     // 残タスク数を集計
     TodoTasks () {
-      return this.tasks.length - this.DoneTasks
+　　　return this.tasks.length - this.DoneTasks
     },
-
     // 完了タスク数を集計
     DoneTasks () {
       return this.tasks.filter(task => task.done).length
     },
-
     // 進捗度を算出
     progress () {
       return this.DoneTasks / this.tasks.length * 100
-    },
+    }
+  },
+  mounted () {
+    this.loadTasks()
   },
   methods: {
+    loadTasks () {
+      const tasksStrage = JSON.parse(localStorage.getItem(this.STRAGE_KEY || '[]'))
+      this.tasks = tasksStrage
+    },
     // タスク追加
     createTask () {
-      if(!this.task) return
+      if(!this.task || !this.task.trim()) return
 
       this.tasks.push({
         done: false,
         text: this.task
       })
 
+      // 保存
+      localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks))
+
       // 入力欄の初期化
       this.task = null
     },
-
     // タスク削除
     deleteTasks () {
       this.snackbar.showSnackbar = false
@@ -170,6 +158,9 @@ export default {
       for (let i = this.tasks.length - 1; i >= 0; i-- ) {
         if (this.tasks[i].done) this.tasks.splice(i, 1)
       }
+
+      // 保存
+　    localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks))
     }
   }
 };
