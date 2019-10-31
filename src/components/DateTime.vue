@@ -51,11 +51,22 @@
     </v-container>
     <p class="title">説明</p>
     <v-card-text class="subtitle-1" style="white-space: pre-line;">{{ weatherResult.text }}</v-card-text>
-    <v-btn v-scroll="onScroll" fab fixed bottom right @click="goTopPage" color="teal accent-4">
-      <i class="material-icons">
-        arrow_upward
-      </i>
-    </v-btn>
+    <v-slide-y-transition>
+      <v-btn
+      fab
+      fixed
+      bottom
+      right
+      v-show="isShowScrollButton"
+      v-scroll="handleScrollButton"
+      @click="goTopPage"
+      color="teal accent-4"
+      >
+        <i class="material-icons">
+          arrow_upward
+        </i>
+      </v-btn>
+    </v-slide-y-transition>
   </v-container>
 </template>
 
@@ -76,7 +87,9 @@ export default {
     // 整形後の予測データ
     forecastLists: [],
     // 対象エリア
-    area:''
+    area:'',
+    // スクロールするボタンの表示/非表示を制御
+    isShowScrollButton: false
   }),
   computed: {
     year () {
@@ -129,6 +142,11 @@ export default {
         this.forecastLists.push(this.resultForecasts[index])
       })
     },
+    // ページトップにスクロールさせるボタンの表示/非表示を制御
+    handleScrollButton (event) {
+      this.isShowScrollButton = window.scrollY >= 50
+    },
+    //ページ上部へスクロール
     goTopPage () {
       this.$vuetify.goTo(0)
     }
