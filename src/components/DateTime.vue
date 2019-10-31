@@ -51,6 +51,11 @@
     </v-container>
     <p class="title">説明</p>
     <v-card-text class="subtitle-1" style="white-space: pre-line;">{{ weatherResult.text }}</v-card-text>
+    <v-btn v-scroll="onScroll" fab fixed bottom right @click="goTopPage" color="teal accent-4">
+      <i class="material-icons">
+        arrow_upward
+      </i>
+    </v-btn>
   </v-container>
 </template>
 
@@ -91,12 +96,7 @@ export default {
     },
     seconds () {
       return zeroPadding(this.date.getSeconds(), 2)
-    },
-    eventsMap () {
-      const map = {}
-      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
-      return map
-    },
+    }
   },
   mounted () {
     this.setDate()
@@ -104,6 +104,7 @@ export default {
 
     this.getWetherData()
     this.shapingForecastData()
+    this.goTopPage()
   },
   methods: {
     // 現在時刻を取得
@@ -127,6 +128,9 @@ export default {
       this.resultForecasts.forEach((re, index) => {
         this.forecastLists.push(this.resultForecasts[index])
       })
+    },
+    goTopPage () {
+      this.$vuetify.goTo(0)
     }
   }
 };
