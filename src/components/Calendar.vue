@@ -1,5 +1,5 @@
 <template>
-  <v-sheet height="500">
+  <v-sheet height="800">
     <v-btn color="blue-grey" text rounded @click="$refs.calendar.prev()">
       <v-icon large>keyboard_arrow_left</v-icon>
     </v-btn>

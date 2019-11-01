@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-img class="background-image" src="./../images/IMG_000.jpg">
+    <v-img class="background-image pt-10" src="./../images/IMG_000.jpg">
       <v-text-field
         v-model="task"
         label="Enter the task name to create"
