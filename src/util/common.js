@@ -1,7 +1,9 @@
 export default {
-  data:{
+  data () {
+    return {
     // スクロールするボタンの表示/非表示を制御
     isShowScrollButton: false
+  }
   },
   methods: {
     // ページトップにスクロールさせるボタンの表示 / 非表示を制御

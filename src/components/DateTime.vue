@@ -71,7 +71,8 @@
 </template>
 
 <script>
-import mixin from './../util/mixin'
+import mixin from './../util/common'
+
 const zeroPadding = (num, digit) => {
     return (Array(digit).join('0') + num).slice(-digit)
 }
@@ -117,7 +118,6 @@ export default {
     this.goTopPage()
     this.handleScrollButton()
     this.shapingForecastData()
-    this.switchShowButton()
   },
   methods: {
     // 現在時刻を取得
