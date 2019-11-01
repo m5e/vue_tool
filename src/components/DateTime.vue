@@ -57,8 +57,8 @@
       fixed
       bottom
       right
-      v-show="isShowScrollButton"
       v-scroll="handleScrollButton"
+      v-show="isShowScrollButton"
       @click="goTopPage"
       color="teal accent-4"
       >
@@ -71,13 +71,14 @@
 </template>
 
 <script>
+import mixin from './../util/mixin'
 const zeroPadding = (num, digit) => {
     return (Array(digit).join('0') + num).slice(-digit)
 }
 
 export default {
   inject: ['theme'],
-
+  mixins: [mixin],
   data: () => ({
     date: new Date(),
     // webサーバから取得したデータ
@@ -87,9 +88,7 @@ export default {
     // 整形後の予測データ
     forecastLists: [],
     // 対象エリア
-    area:'',
-    // スクロールするボタンの表示/非表示を制御
-    isShowScrollButton: false
+    area:''
   }),
   computed: {
     year () {
@@ -114,10 +113,11 @@ export default {
   mounted () {
     this.setDate()
     setInterval(() => this.setDate(), 1000)
-
     this.getWetherData()
-    this.shapingForecastData()
     this.goTopPage()
+    this.handleScrollButton()
+    this.shapingForecastData()
+    this.switchShowButton()
   },
   methods: {
     // 現在時刻を取得
@@ -141,17 +141,10 @@ export default {
       this.resultForecasts.forEach((re, index) => {
         this.forecastLists.push(this.resultForecasts[index])
       })
-    },
-    // ページトップにスクロールさせるボタンの表示/非表示を制御
-    handleScrollButton (event) {
-      this.isShowScrollButton = window.scrollY >= 50
-    },
-    //ページ上部へスクロール
-    goTopPage () {
-      this.$vuetify.goTo(0)
     }
   }
-};
+}
+
 </script>
 <style>
 .fab-container {
