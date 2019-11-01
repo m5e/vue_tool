@@ -122,11 +122,16 @@ export default {
     }
   },
   mounted () {
-    this.loadTasks()
+    this.loadTasks ()
   },
   methods: {
     loadTasks () {
-      const tasksStrage = JSON.parse(localStorage.getItem(this.STRAGE_KEY || '[]'))
+      const tasksStrage = JSON.parse(localStorage.getItem(this.STRAGE_KEY))
+      if(!tasksStrage) {
+        this.tasks = []
+        return
+      }
+
       this.tasks = tasksStrage
     },
     // タスク追加
@@ -138,7 +143,6 @@ export default {
         text: this.task
       })
 
-      // 保存
       localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks))
 
       // 入力欄の初期化
@@ -159,7 +163,6 @@ export default {
         if (this.tasks[i].done) this.tasks.splice(i, 1)
       }
 
-      // 保存
 　    localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks))
     }
   }

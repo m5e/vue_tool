@@ -47,8 +47,10 @@ export default {
     // 選択 / 未選択状態を切り替える
     chackImageStatus (imageIndex) {
       const isSelectedImage = this.selectedImage === imageIndex
-      this.isShowAnchor = false
-　    if (isSelectedImage) return
+  　    if (isSelectedImage) {
+          this.isShowAnchor = false
+          return
+        }
 
       this.selectedImage = imageIndex
       this.isShowAnchor = true

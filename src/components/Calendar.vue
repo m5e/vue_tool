@@ -31,7 +31,6 @@ export default {
   },
 
   methods: {
-    // リポジトリ内の json から祝日の一覧を取得
     getHolidays () {
       const tmpHolidaysList = require('./../json/holidays.json') // TODO：API で取得する実装
       tmpHolidaysList.forEach((data) => {

@@ -120,7 +120,6 @@ export default {
     this.shapingForecastData()
   },
   methods: {
-    // 現在時刻を取得
     setDate () {
       this.date = new Date()
     },
