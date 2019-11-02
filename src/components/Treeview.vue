@@ -1,25 +1,8 @@
 <template>
-  <v-treeview
-    v-model="tree"
-    :open="open"
-    :items="items"
-    item-key="name"
-    open-all
-    transition
-  >
+  <v-treeview v-model="tree" :open="open" :items="items" item-key="name" open-all transition>
     <template v-slot:prepend="{ item, open }">
-      <i
-        v-if="!item.file"
-        class="material-icons"
-      >
-        {{ open ? 'folder_open' : 'folder' }}
-      </i>
-      <i
-        v-else
-        class="material-icons"
-      >
-        {{ files[item.file] }}
-      </i>
+      <i v-if="!item.file" class="material-icons">{{ open ? 'folder_open' : 'folder' }}</i>
+      <i v-else class="material-icons">{{ files[item.file] }}</i>
     </template>
   </v-treeview>
 </template>
@@ -32,70 +15,67 @@ export default {
     // 定義必須
     tree: [],
     files: {
-      png: 'image',
-      mp3: 'music_video',
-      mp4: 'local_movies',
-      txt: 'insert_drive_file',
-      md: 'description',
-      strage: 'sd'
+      png: "image",
+      mp3: "music_video",
+      mp4: "local_movies",
+      txt: "insert_drive_file",
+      md: "description",
+      strage: "sd"
     },
     items: [
       {
-        name: 'PerfLogs',
+        name: "PerfLogs",
         children: [
-            { name: 'image',
-              children: [
-                {
-                  name: 'sample.png',
-                  file: 'png'
-                }
-              ]
-            },
           {
-            name: 'movie',
+            name: "image",
             children: [
               {
-                name: 'movie.mp4',
-                file: 'mp4'
+                name: "sample.png",
+                file: "png"
               }
             ]
           },
           {
-            name: 'music',
+            name: "movie",
             children: [
               {
-                name: 'music.mp3',
-                file: 'mp3'
+                name: "movie.mp4",
+                file: "mp4"
               }
             ]
           },
           {
-            name: 'document',
+            name: "music",
             children: [
               {
-                name: 'old',
+                name: "music.mp3",
+                file: "mp3"
+              }
+            ]
+          },
+          {
+            name: "document",
+            children: [
+              {
+                name: "old",
                 children: [
                   {
-                    name: 'sample.txt',
-                    file: 'txt'
+                    name: "sample.txt",
+                    file: "txt"
                   }
                 ]
               },
               {
-                name:'current',
+                name: "current",
                 children: [
-                  { name: 'sample2.txt',
-                    file: 'txt'
-                  },
-                  { name: 'sample3.txt',
-                    file: 'txt'
-                  },
+                  { name: "sample2.txt", file: "txt" },
+                  { name: "sample3.txt", file: "txt" },
                   {
-                    name: 'md',
+                    name: "md",
                     children: [
                       {
-                        name: 'sample.md',
-                        file: 'md'
+                        name: "sample.md",
+                        file: "md"
                       }
                     ]
                   }
@@ -106,11 +86,11 @@ export default {
         ]
       },
       {
-        name: 'hobby',
+        name: "hobby",
         children: [
           {
-            name: 'sd-card',
-            file: 'strage'
+            name: "sd-card",
+            file: "strage"
           }
         ]
       }
