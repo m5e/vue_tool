@@ -1,40 +1,101 @@
 <template>
   <v-responsive :aspect-ratio="16/9">
     <v-app>
-      <v-navigation-drawer v-model="isShowDrawer" absolute temporary>
+      <v-navigation-drawer
+        v-model="isShowDrawer"
+        absolute
+        temporary
+      >
         <p>
-          <v-icon class="material-icons" large>account_box</v-icon>
-          アカウント
+          <v-icon
+            class="material-icons"
+            large
+            color="primary"
+          >
+            account_box
+          </v-icon>
+          <span class="font-weight-medium">
+            アカウント
+          </span>
         </p>
         <p>
-          <v-icon class="material-icons" large>supervised_user_circle</v-icon>
-          作業報告書
+          <v-icon
+            class="material-icons"
+            large
+            color="purple darken-1"
+          >
+            supervised_user_circle
+          </v-icon>
+          <span class="font-weight-medium">
+            作業報告書
+          </span>
         </p>
         <p>
-          <v-icon class="material-icons" large>subway</v-icon>
-          電車情報
+          <v-icon
+            class="material-icons"
+            large
+            color="success"
+          >
+            subway
+          </v-icon>
+          <span class="font-weight-medium">
+            電車情報
+          </span>
         </p>
       </v-navigation-drawer>
-      <v-toolbar color="teal accent-4" height="60%">
-        <v-app-bar-nav-icon @click.stop="isShowDrawer = !isShowDrawer"></v-app-bar-nav-icon>
+      <v-toolbar
+        color="teal accent-4"
+        height="60%"
+      >
+        <v-app-bar-nav-icon @click.stop="isShowDrawer = !isShowDrawer" />
         <v-toolbar-title>さくせいちゅう</v-toolbar-title>
         <v-toolbar-items>
-          <v-btn text @click="switchPage(0)">DateTime</v-btn>
-          <v-btn text @click="switchPage(1)">Todo</v-btn>
-          <v-btn text @click="switchPage(2)">Calendar</v-btn>
-          <v-btn text @click="switchPage(3)">picture</v-btn>
-          <v-btn text @click="switchPage(4)">Youtube</v-btn>
-          <v-btn text @click="switchPage(5)">Treeview</v-btn>
+          <v-btn
+            text
+            @click="switchPage(0)"
+          >
+            DateTime
+          </v-btn>
+          <v-btn
+            text
+            @click="switchPage(1)"
+          >
+            Todo
+          </v-btn>
+          <v-btn
+            text
+            @click="switchPage(2)"
+          >
+            Calendar
+          </v-btn>
+          <v-btn
+            text
+            @click="switchPage(3)"
+          >
+            picture
+          </v-btn>
+          <v-btn
+            text
+            @click="switchPage(4)"
+          >
+            Youtube
+          </v-btn>
+          <v-btn
+            text
+            @click="switchPage(5)"
+          >
+            Treeview
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-content>
         <v-card>
-        <DateTime v-if="page === 0"/>
-        <TodoList v-if="page === 1"/>
-        <Calendar v-if="page === 2"/>
-        <Picture v-if="page === 3"/>
-        <Api v-if="page === 4"/>
-        <Treeview v-if="page === 5"/>
+          <DateTime v-if="page === 0" />
+          <TodoList v-if="page === 1" />
+          <Calendar v-if="page === 2" />
+          <Picture v-if="page === 3" />
+          <Api v-if="page === 4" />
+          <Treeview v-if="page === 5" />
         </v-card>
       </v-content>
     </v-app>
@@ -64,17 +125,17 @@ export default {
     //ハンバーガーメニューの表示/非表示を制御
     isShowDrawer: false
   }),
+  computed: {
+    //
+  },
   mounted () {
     this.switchPage()
 
     // 初期表示時、page のマウント後に switchPage() を実行したいので
     // エレメントのマウント後に実行
-　　this.$nextTick(() => {
+    this.$nextTick(() => {
       this.switchPage(0)
     })
-  },
-  computed: {
-    //
   },
   methods: {
     // ページ切替え

@@ -32,4 +32,5 @@ app.get('/weather', (req, res) => {
 });
 
 // サーバ起動
+// eslint-disable-next-line no-console
 app.listen(port, () => console.log('Listening on port 3000'));

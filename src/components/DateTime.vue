@@ -1,34 +1,66 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex grid-list-md text-center md2>
+      <v-flex
+        grid-list-md
+        text-center
+        md2
+      >
         <v-card color="blue-grey lighten-2">
-          <v-card-text class="px-0 time year title">{{ year }}</v-card-text>
+          <v-card-text class="px-0 time year title">
+            {{ year }}
+          </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-center md2>
+      <v-flex
+        grid-list-md
+        text-center
+        md2
+      >
         <v-card color="blue-grey lighten-2">
-          <v-card-text class="px-0 time month title">{{ month }}</v-card-text>
+          <v-card-text class="px-0 time month title">
+            {{ month }}
+          </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-center md2>
+      <v-flex
+        grid-list-md
+        text-center
+        md2
+      >
         <v-card color="blue-grey lighten-2">
-          <v-card-text class="px-0 time day title">{{ day }}</v-card-text>
+          <v-card-text class="px-0 time day title">
+            {{ day }}
+          </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-center md2>
+      <v-flex
+        grid-list-md
+        text-center
+        md2
+      >
         <v-card color="blue-grey lighten-2">
-          <v-card-text class="px-0 time hour title">{{ hours }}</v-card-text>
+          <v-card-text class="px-0 time hour title">
+            {{ hours }}
+          </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-center md2>
+      <v-flex
+        grid-list-md
+        text-center
+        md2
+      >
         <v-card color="blue-grey lighten-2">
           <v-card-text class="px-0 time minutes title">
             {{ minutes }}
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex grid-list-md text-center md2>
+      <v-flex
+        grid-list-md
+        text-center
+        md2
+      >
         <v-card color="blue-grey lighten-2">
           <v-card-text class="px-0 time seconds title">
             {{ seconds }}
@@ -36,31 +68,55 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <br/>
+    <br>
     <h2>{{ this.area }}のお天気</h2>
-    <v-container class="d-flex md-6" v-for="forcast in this.forecastLists" :key="forcast.dateLabel">
-      <v-row v-for="data in forcast" :key="data.dateLabel">
+    <v-container
+      v-for="forcast in this.forecastLists"
+      :key="forcast.dateLabel"
+      class="d-flex md-6"
+    >
+      <v-row
+        v-for="data in forcast"
+        :key="data.dateLabel"
+      >
         <v-col cols="10">
-          <v-card class="pt-2 pb-3 pl-4" outlined tile>
-            <p class="font-weight-bold">{{ data.date }}</p>
+          <v-card
+            class="pt-2 pb-3 pl-4"
+            outlined
+            tile
+          >
+            <p class="font-weight-bold">
+              {{ data.date }}
+            </p>
             <p>{{ data.dateLabel }}の天気は{{ data.telop }}</p>
-            <v-img :src="data.image.url" width="75" height="45"/>
+            <v-img
+              :src="data.image.url"
+              width="75"
+              height="45"
+            />
           </v-card>
         </v-col>
       </v-row>
     </v-container>
-    <p class="title">説明</p>
-    <v-card-text class="subtitle-1" style="white-space: pre-line;">{{ weatherResult.text }}</v-card-text>
+    <p class="title">
+      説明
+    </p>
+    <v-card-text
+      class="subtitle-1"
+      style="white-space: pre-line;"
+    >
+      {{ weatherResult.text }}
+    </v-card-text>
     <v-slide-y-transition>
       <v-btn
-      fab
-      fixed
-      bottom
-      right
-      v-scroll="handleScrollButton"
-      v-show="isShowScrollButton"
-      @click="goTopPage"
-      color="teal accent-4"
+        v-show="isShowScrollButton"
+        v-scroll="handleScrollButton"
+        fab
+        fixed
+        bottom
+        right
+        color="teal accent-4"
+        @click="goTopPage"
       >
         <i class="material-icons">
           arrow_upward
@@ -133,6 +189,7 @@ export default {
         //予測データを整形
         this.shapingForecastData()
       }).catch(err => {
+        // eslint-disable-next-line no-console
         console.log(err.response)
       });
     },

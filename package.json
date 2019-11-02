@@ -5,7 +5,7 @@
   "scripts": {
     "st": "vue-cli-service serve",
     "bu": "vue-cli-service build",
-    "li": "vue-cli-service lint",
+    "li": "vue-cli-service lint --no-fix",
     "se": "node ./src/server/index.js"
   },
   "dependencies": {
@@ -24,7 +24,7 @@
     "@vue/cli-service": "3.12.0",
     "babel-eslint": "10.0.1",
     "eslint": "5.16.0",
-    "eslint-plugin-vue": "5.0.0",
+    "eslint-plugin-vue": "5.2.3",
     "material-design-icons-iconfont": "5.0.1",
     "sass": "1.17.4",
     "sass-loader": "7.1.0",

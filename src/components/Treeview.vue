@@ -1,17 +1,23 @@
 <template>
   <v-treeview
-  v-model="tree"
-  :open="open"
-  :items="items"
-  item-key="name"
-  open-all
-  transition
+    v-model="tree"
+    :open="open"
+    :items="items"
+    item-key="name"
+    open-all
+    transition
   >
     <template v-slot:prepend="{ item, open }">
-      <i class="material-icons" v-if="!item.file">
-        {{open ? 'folder_open' : 'folder' }}
+      <i
+        v-if="!item.file"
+        class="material-icons"
+      >
+        {{ open ? 'folder_open' : 'folder' }}
       </i>
-      <i class="material-icons" v-else>
+      <i
+        v-else
+        class="material-icons"
+      >
         {{ files[item.file] }}
       </i>
     </template>

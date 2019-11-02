@@ -1,20 +1,34 @@
 <template>
   <v-sheet height="800">
-    <v-btn color="blue-grey" text rounded @click="$refs.calendar.prev()">
-      <v-icon large>keyboard_arrow_left</v-icon>
+    <v-btn
+      color="blue-grey"
+      text
+      rounded
+      @click="$refs.calendar.prev()"
+    >
+      <v-icon large>
+        keyboard_arrow_left
+      </v-icon>
     </v-btn>
-    <v-btn color="blue-grey" text rounded @click="$refs.calendar.next()">
-      <v-icon large>keyboard_arrow_right</v-icon>
+    <v-btn
+      color="blue-grey"
+      text
+      rounded
+      @click="$refs.calendar.next()"
+    >
+      <v-icon large>
+        keyboard_arrow_right
+      </v-icon>
     </v-btn>
     <v-calendar
-      type="month"
-      class="pt-5"
       ref="calendar"
       v-model="start"
+      type="month"
+      class="pt-5"
       color="primary"
       :events="holidaysList"
       :event-color="getHolidayColor"
-    ></v-calendar>
+    />
   </v-sheet>
 </template>
 

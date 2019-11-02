@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <v-img class="background-image pt-10" src="./../images/IMG_000.jpg">
+    <v-img
+      class="background-image pt-10"
+      src="./../images/IMG_000.jpg"
+    >
       <v-text-field
         v-model="task"
         label="Enter the task name to create"
@@ -17,8 +20,8 @@
       </v-text-field>
       <h2 class="display-2 black--text pl-4 pt-5 font-weight-bold">
         To Do List
-        <v-fade-transition leave-absolute></v-fade-transition>
-        <v-divider class="mt-4"></v-divider>
+              <v-fade-transition leave-absolute/>
+              <v-divider class="mt-4"/>
       </h2>
       <v-row
         class="my-1"
@@ -27,38 +30,53 @@
         <strong class="title black--text font-weight-bold mx-4 pl-2 pr-2">
           Todo: {{ TodoTasks }}
         </strong>
-        <v-divider vertical></v-divider>
+        <v-divider vertical />
         <strong class="title black--text font-weight-bold mx-4 pl-2 pr-2">
           Done: {{ DoneTasks }}
         </strong>
 
-        <v-spacer></v-spacer>
+        <v-spacer />
 
         <v-progress-circular
           :value="progress"
           class="mr-5"
           color="teal accent-4"
-        ></v-progress-circular>
+        />
       </v-row>
-      <v-divider class="mb-4"></v-divider>
+      <v-divider class="mb-4" />
 
       <v-col cols="12">
-        <v-btn @click="deleteTasks" outlined color="black">delete</v-btn>
+        <v-btn
+          outlined
+          color="black"
+          @click="deleteTasks"
+        >
+          delete
+        </v-btn>
       </v-col>
-      <v-snackbar v-model="snackbar.showSnackbar" :timeout="snackbar.timeout" color="pink lighten-2" top>
+      <v-snackbar
+        v-model="snackbar.showSnackbar"
+        :timeout="snackbar.timeout"
+        color="pink lighten-2"
+        top
+      >
         {{ this.snackbar.message }}
       </v-snackbar>
 
-      <v-card v-if="tasks.length > 0" outlined class="task-lists mt-4">
+      <v-card
+        v-if="tasks.length > 0"
+        outlined
+        class="task-lists mt-4"
+      >
         <v-slide-y-transition
           class="py-0"
           group
         >
-        <template v-for="(task, i) in tasks">
+          <template v-for="(task, i) in tasks">
             <v-divider
               v-if="i !== 0"
               :key="`${i}-divider`"
-            ></v-divider>
+            />
 
             <v-list-item :key="`${i}-${task.text}`">
               <v-list-item-action>
@@ -71,12 +89,12 @@
                       :class="task.done && 'grey--text' || 'text--primary'"
                       class="font-weight-bold ml-4"
                       v-text="task.text"
-                    ></div>
+                    />
                   </template>
                 </v-checkbox>
               </v-list-item-action>
 
-              <v-spacer></v-spacer>
+              <v-spacer/>
 
               <v-scroll-x-transition>
                 <v-icon
@@ -110,7 +128,7 @@ export default {
   computed: {
     // 残タスク数を集計
     TodoTasks () {
-　　　return this.tasks.length - this.DoneTasks
+      return this.tasks.length - this.DoneTasks
     },
     // 完了タスク数を集計
     DoneTasks () {
@@ -152,7 +170,7 @@ export default {
     deleteTasks () {
       this.snackbar.showSnackbar = false
 
-　　　const isCompletedTask = this.tasks.some((task) => task.done === true)
+      const isCompletedTask = this.tasks.some((task) => task.done === true)
       if (!isCompletedTask) {
         this.snackbar.showSnackbar = true
         return
@@ -163,7 +181,7 @@ export default {
         if (this.tasks[i].done) this.tasks.splice(i, 1)
       }
 
-　    localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks))
+      localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks))
     }
   }
 };
