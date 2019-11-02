@@ -5,6 +5,7 @@
   :items="items"
   item-key="name"
   open-all
+  transition
   >
     <template v-slot:prepend="{ item, open }">
       <i class="material-icons" v-if="!item.file">
@@ -20,6 +21,10 @@
 <script>
 export default {
   data: () => ({
+    // 定義必須(配列)
+    open: [],
+    // 定義必須
+    tree: [],
     files: {
       png: 'image',
       mp3: 'music_video',
@@ -107,6 +112,7 @@ export default {
   })
 };
 </script>
+
 
 <style scoped>
 </style>

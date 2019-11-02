@@ -38,16 +38,34 @@
         </iframe>
       </li>
     </ul>
+    <v-slide-y-transition>
+      <v-btn
+      fab
+      fixed
+      bottom
+      right
+      v-scroll="handleScrollButton"
+      v-show="isShowScrollButton"
+      @click="goTopPage"
+      color="teal accent-4"
+      >
+        <i class="material-icons">
+          arrow_upward
+        </i>
+      </v-btn>
+    </v-slide-y-transition>
   </v-container>
 </template>
 
 <script>
 import YouTube from './../../node_modules/youtube-node'
+import common from './../util/common'
 
 const youtube = new YouTube()
 youtube.setKey('apikey')
 
 export default {
+  mixins: [common],
   data: () => ({
     showResult: false,
     // 検索結果
@@ -60,10 +78,12 @@ export default {
   },
   mounted () {
     this.searchYoutubeResult()
+    this.goTopPage()
+    this.handleScrollButton()
   },
   methods: {
     async searchYoutubeResult (keyWord) {
-      let searchWord = 'vue.js'
+      let searchWord = 'cat'
       if (keyWord) searchWord = keyWord
 
       youtube.search(searchWord, 10, (error, result) => {

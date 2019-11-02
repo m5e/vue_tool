@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import mixin from './../util/common'
+import common from './../util/common'
 
 const zeroPadding = (num, digit) => {
     return (Array(digit).join('0') + num).slice(-digit)
@@ -79,7 +79,7 @@ const zeroPadding = (num, digit) => {
 
 export default {
   inject: ['theme'],
-  mixins: [mixin],
+  mixins: [common],
   data: () => ({
     date: new Date(),
     // webサーバから取得したデータ
