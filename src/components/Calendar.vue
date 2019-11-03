@@ -22,15 +22,23 @@
 export default {
   data: () => ({
     //prev(),next() の実行に必要
-    start: "2019-10-01",
+    start: "",
     holidaysList: []
   }),
 
   mounted() {
+    this.setDate();
     this.getHolidays();
   },
 
   methods: {
+    setDate() {
+      const dateObject = new Date();
+      const year = dateObject.getFullYear();
+      const month = dateObject.getMonth() + 1;
+      const date = dateObject.getDate();
+      this.start = year + "-" + month + "-" + date;
+    },
     getHolidays() {
       const tmpHolidaysList = require("./../json/holidays.json"); // TODO：API で取得する実装
       tmpHolidaysList.forEach(data => {
