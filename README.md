@@ -1,5 +1,8 @@
 # vue_tool
 
+## Description
+Simple application using vue.js × node.js × Material Design
+
 ## Set up
 Next command execution
 ```
