@@ -37,22 +37,43 @@ export default {
       ["4", "5", "6", "*"],
       ["1", "2", "3", "-"],
       ["0", "AC", "+", "="]
-    ]
+    ],
+    isOutputed: false
   }),
   mounted() {
     //
   },
   methods: {
+    // TODO:少数対応
     setInputValue(itemNum) {
       if (itemNum === "AC") {
         this.viewNum = [];
-        return;
-      } else if (itemNum === "=") {
-        this.viewNum = eval(this.viewNum); // TODO: Since using eval is bad, implement alternatives
-        return;
-      }
 
-      this.viewNum = this.viewNum + itemNum;
+        return;
+      } else if (this.viewNum.length === 0) {
+        if (itemNum === ("+" || "-" || "*" || "/")) return;
+
+        this.viewNum = itemNum;
+      } else {
+        if (itemNum === "=") {
+          if (!this.isOutputed) {
+            this.viewNum = eval(this.viewNum);
+            this.isOutputed = true;
+          }
+
+          return;
+        }
+
+        if (String(this.viewNum).indexOf("0") === 0) {
+          this.viewNum = itemNum;
+          this.isOutputed = false;
+
+          return;
+        }
+
+        this.viewNum = this.viewNum + itemNum;
+        this.isOutputed = false;
+      }
     }
   }
 };
