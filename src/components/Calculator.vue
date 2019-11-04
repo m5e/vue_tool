@@ -29,12 +29,14 @@ export default {
   data: () => ({
     viewNum: [],
     items: [
-      ["7", "8", "9", "/"],
-      ["4", "5", "6", "*"],
+      ["7", "8", "9", "÷"],
+      ["4", "5", "6", "×"],
       ["1", "2", "3", "-"],
       ["0", "AC", "+", "="]
     ],
     isOutputed: false,
+    isOperator: "",
+    isOperatorFlg: false,
     textFieldStyle: {
       "background-color": "azure"
     }
@@ -47,16 +49,45 @@ export default {
         this.viewNum = [];
 
         return;
-      } else if (item.length === 0) {
+      }
+
+      if (this.viewNum.length === 0) {
+        if (
+          item === "+" ||
+          item === "-" ||
+          item === "×" ||
+          item === "÷" ||
+          item === "="
+        )
+          return;
+
         this.viewNum = item;
-      } else if (item.length > 0) {
+      } else if (this.viewNum.length > 0) {
+        if (item === "+" || item === "-" || item === "×" || item === "÷") {
+          if (!this.isOperatorFlg) {
+            this.isOperator = item;
+            this.isOperatorFlg = true;
+            this.viewNum = this.viewNum + item;
+            return;
+          } else if (this.isOperatorFlg && item === this.isOperator) {
+            return;
+          } else if (this.isOperatorFlg && item !== this.isOperator) {
+            this.viewNum = this.viewNum + item;
+            return;
+          }
+        }
+
         if (item === "=") {
           if (!this.isOutputed) {
-            let result = new Function("return " + this.viewNum)();
-            result = Math.round(result * 10);
-            this.viewNum = result / 10;
+            this.viewNum = String(this.viewNum).replace(/×/, "*");
+            this.viewNum = String(this.viewNum).replace(/÷/, "/");
+
+            const result = new Function("return " + this.viewNum)();
+            this.viewNum = String(Math.round(result * 10) / 10);
 
             this.isOutputed = true;
+            this.isOperator = "";
+            this.isOperatorFlg = false;
           }
 
           return;
