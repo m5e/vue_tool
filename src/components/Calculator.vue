@@ -7,19 +7,16 @@
           width="220px"
           height="120px"
           :value="viewNum"
-          style="background-color:white"
+          :style="textFieldStyle"
           readonly
         />
       </v-col>
       <v-col class="ml-1" cols="3">
         <v-list-item v-for="(item, index) in items" :key="`first-${index}`">
           <div class="pl-1 pb-2" v-for="(itemNum, index) in item" :key="`second-${index}`">
-            <v-btn
-              class="primary"
-              height="60px"
-              @click="setInputValue(itemNum)"
-              :v-model="itemNum"
-            >{{itemNum}}</v-btn>
+            <v-btn class="primary" height="60px" @click="setInputValue(itemNum)" :v-model="itemNum">
+              <span style="font-size:20px">{{itemNum}}</span>
+            </v-btn>
           </div>
         </v-list-item>
       </v-col>
@@ -31,53 +28,49 @@
 export default {
   data: () => ({
     viewNum: [],
-    tmpNum: "",
     items: [
       ["7", "8", "9", "/"],
       ["4", "5", "6", "*"],
       ["1", "2", "3", "-"],
       ["0", "AC", "+", "="]
     ],
-    isOutputed: false
+    isOutputed: false,
+    textFieldStyle: {
+      "background-color": "azure"
+    }
   }),
-  mounted() {
-    //
-  },
   methods: {
-    // TODO:少数対応
     setInputValue(itemNum) {
-      if (itemNum === "AC") {
+      const item = itemNum;
+
+      if (item === "AC") {
         this.viewNum = [];
 
         return;
-      } else if (this.viewNum.length === 0) {
-        if (itemNum === ("+" || "-" || "*" || "/")) return;
-
-        this.viewNum = itemNum;
-      } else {
-        if (itemNum === "=") {
+      } else if (item.length === 0) {
+        this.viewNum = item;
+      } else if (item.length > 0) {
+        if (item === "=") {
           if (!this.isOutputed) {
-            this.viewNum = eval(this.viewNum);
+            let result = new Function("return " + this.viewNum)();
+            result = Math.round(result * 10);
+            this.viewNum = result / 10;
+
             this.isOutputed = true;
           }
 
           return;
-        }
-
-        if (String(this.viewNum).indexOf("0") === 0) {
-          this.viewNum = itemNum;
+        } else if (String(this.viewNum).indexOf("0") === 0) {
+          this.viewNum = item;
           this.isOutputed = false;
 
           return;
+        } else {
+          this.viewNum = this.viewNum + item;
+          this.isOutputed = false;
         }
-
-        this.viewNum = this.viewNum + itemNum;
-        this.isOutputed = false;
       }
     }
   }
 };
 </script>
-
-<style scoped>
-</style>
