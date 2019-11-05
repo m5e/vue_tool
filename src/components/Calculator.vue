@@ -27,15 +27,21 @@
 <script>
 export default {
   data: () => ({
-    viewNum: [],
+    // 表示用の変数
+    viewNum: "",
+    // 計算用の変数
+    tmpNum: [],
     items: [
       ["7", "8", "9", "÷"],
       ["4", "5", "6", "×"],
       ["1", "2", "3", "-"],
       ["0", "AC", "+", "="]
     ],
+    // 出力済みフラグ
     isOutputed: false,
+    // 直前に入力された演算子の種類
     isOperator: "",
+    // 直前に演算子が入力されているか否かを確認するフラグ
     isOperatorFlg: false,
     textFieldStyle: {
       "background-color": "azure"
@@ -46,44 +52,60 @@ export default {
       const item = itemNum;
 
       if (item === "AC") {
-        this.viewNum = [];
+        this.viewNum = "";
+        this.tmpNum = [];
 
         return;
       }
 
-      if (this.viewNum.length === 0) {
+      if (this.tmpNum.length === 0) {
         if (
           item === "+" ||
           item === "-" ||
           item === "×" ||
           item === "÷" ||
           item === "="
-        )
+        ) {
           return;
+        }
 
-        this.viewNum = item;
-      } else if (this.viewNum.length > 0) {
+        this.tmpNum.push(item);
+        this.viewNum = this.tmpNum.join("");
+      } else if (this.tmpNum.length > 0) {
         if (item === "+" || item === "-" || item === "×" || item === "÷") {
           if (!this.isOperatorFlg) {
             this.isOperator = item;
             this.isOperatorFlg = true;
-            this.viewNum = this.viewNum + item;
+
+            this.tmpNum.push(item);
+            this.viewNum = this.tmpNum.join("");
+
             return;
           } else if (this.isOperatorFlg && item === this.isOperator) {
             return;
           } else if (this.isOperatorFlg && item !== this.isOperator) {
-            this.viewNum = this.viewNum + item;
+            this.tmpNum.push(item);
+            this.viewNum = this.tmpNum.join("");
+
             return;
           }
         }
 
         if (item === "=") {
           if (!this.isOutputed) {
-            this.viewNum = String(this.viewNum).replace(/×/, "*");
-            this.viewNum = String(this.viewNum).replace(/÷/, "/");
+            this.viewNum = String(
+              this.tmpNum
+                .join("")
+                .replace(/×/, "*")
+                .replace(/÷/, "/")
+            );
 
-            const result = new Function("return " + this.viewNum)();
-            this.viewNum = String(Math.round(result * 10) / 10);
+            this.viewNum = new Function("return " + this.viewNum)();
+
+            // 初期化
+            this.tmpNum.length = 0;
+
+            this.tmpNum[0] = this.viewNum;
 
             this.isOutputed = true;
             this.isOperator = "";
@@ -92,12 +114,14 @@ export default {
 
           return;
         } else if (String(this.viewNum).indexOf("0") === 0) {
-          this.viewNum = item;
+          this.tmpNum[0] = item;
+          this.viewNum = this.tmpNum[0];
           this.isOutputed = false;
 
           return;
         } else {
-          this.viewNum = this.viewNum + item;
+          this.tmpNum.push(item);
+          this.viewNum = this.tmpNum.join("");
           this.isOutputed = false;
         }
       }
