@@ -113,7 +113,20 @@ export default {
           }
 
           return;
-        } else if (String(this.viewNum).indexOf("0") === 0) {
+        } else if (this.tmpNum[this.tmpNum.length - 1] === "0") {
+          if (
+            item === "+" ||
+            item === "-" ||
+            item === "×" ||
+            item === "÷" ||
+            item === "="
+          ) {
+            this.tmpNum.push(item);
+            this.viewNum = this.tmpNum.join("");
+
+            return;
+          }
+
           this.tmpNum[0] = item;
           this.viewNum = this.tmpNum[0];
           this.isOutputed = false;
