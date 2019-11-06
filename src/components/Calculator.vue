@@ -84,7 +84,9 @@ export default {
           } else if (this.isOperatorFlg && item === this.isOperator) {
             return;
           } else if (this.isOperatorFlg && item !== this.isOperator) {
-            this.tmpNum.push(item);
+            this.isOperator = item;
+
+            this.tmpNum[this.tmpNum.length - 1] = item;
             this.viewNum = this.tmpNum.join("");
 
             return;
