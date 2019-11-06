@@ -132,14 +132,14 @@ export default {
 
           // 初期化
           this.tmpNum.length = 0;
-          // this.tmpNum.push(this.viewNum);
-          if (0 < this.tmpNum < 10) {
+
+          if (this.viewNum < 0) {
+            // TODO:演算子と切り分けて格納
+          } else if (0 <= this.viewNum < 10) {
             this.viewNum = String(this.viewNum);
             this.tmpNum[0] = this.viewNum;
-          } else if (this.viewNum >= 10) {
+          } else if (10 <= this.viewNum) {
             // TODO:分割して格納
-          } else if (this.viewNum < 0) {
-            // TODO:演算子と切り分けて格納
           }
 
           this.isOutputed = true;
