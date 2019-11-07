@@ -50,7 +50,13 @@ export default {
   }),
   methods: {
     setInputValue(itemNum) {
-      if (itemNum === "😎" || itemNum === "C" || itemNum === "%") return;
+      if (itemNum === "%") return;
+
+      if (itemNum === "😎") {
+        // eslint-disable-next-line no-console
+        console.log("hello");
+        return;
+      }
 
       const item = itemNum;
 
@@ -62,16 +68,27 @@ export default {
         this.isOperatorFlg = false;
 
         return;
+      } else if (item === "C") {
+        if (this.tmpNum.length === 1) {
+          if (this.tmpNum[0] === "0") return;
+          this.tmpNum[0] = "0";
+          this.viewNum = this.tmpNum.join("");
+          return;
+        } else if (this.tmpNum.length > 0) {
+          this.tmpNum.pop();
+          this.viewNum = this.tmpNum.join("");
+          return;
+        }
       } else if (item === "+" || item === "-" || item === "×" || item === "÷") {
         if (this.tmpNum.length === 1) {
           if (item === "0") return;
 
-          this.tmpNum.push(item);
-          this.viewNum = this.tmpNum.join("");
           this.isOperator = item;
           this.isOperatorFlg = true;
           this.isOutputed = false;
 
+          this.tmpNum.push(item);
+          this.viewNum = this.tmpNum.join("");
           return;
         } else if (this.tmpNum.length > 1) {
           if (!this.isOperatorFlg) {
