@@ -32,11 +32,11 @@ export default {
     // 計算用の変数
     tmpNum: ["0"],
     items: [
-      ["AC", "%", "😎", "÷"],
-      ["7", "8", "9", "×"],
-      ["4", "5", "6", "-"],
-      ["1", "2", "3", "+"],
-      ["0", ".", "C", "="]
+      ["7", "8", "9", "÷"],
+      ["4", "5", "6", "×"],
+      ["1", "2", "3", "-"],
+      [".", "0", "=", "+"],
+      ["😎", "AC", "C", "+"]
     ],
     // 出力済みフラグ
     isOutputed: false,
@@ -50,8 +50,6 @@ export default {
   }),
   methods: {
     setInputValue(itemNum) {
-      if (itemNum === "%") return;
-
       if (itemNum === "😎") {
         // eslint-disable-next-line no-console
         console.log("hello");
