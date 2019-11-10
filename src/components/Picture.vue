@@ -2,12 +2,12 @@
   <v-layout>
     <v-flex>
       <v-container grid-list-md>
-        <!-- <a
+        <a
           v-if="isShowAnchor"
           :href="targetImage"
           target="_blank"
           @click="getDownloadTarget"
-        >選択した画像を別タブで表示</a>-->
+        >選択した画像を別タブで表示</a>
         <v-layout row wrap>
           <v-flex v-for="(n, index) in 12" :key="n" md3 :class="{active: selectedImage === index}">
             <v-card min-height="280px" @click="chackImageStatus(index)" color="#F5F5F5	">
@@ -82,17 +82,17 @@ export default {
     },
     getDownloadTarget() {
       // 選択中の画像のエレメントを取得
+      // ページのレイアウトを変更した際は要修正
       const selected = this.$el.getElementsByClassName("active")[0];
       if (!selected) return;
-
-      const parent = selected.children[0];
-      const targetElement = parent.children[1];
+      const cardElement = selected.children[0];
+      const parentElement = cardElement.children[0];
+      const targetElement = parentElement.children[1];
       const cssText = targetElement.style.cssText;
 
       const strexp = /https:\/\/[a-z]*\.[a-z]*\/[0-9]*\/[0-9]*\?image=[0-9]*/;
       // 画像のURL取得
       this.targetImage = cssText.match(strexp)[0];
-      console.log(this.targetImage);
     }
   }
 };
