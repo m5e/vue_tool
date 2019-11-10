@@ -25,7 +25,8 @@
           <v-btn text @click="switchPage(3)">picture</v-btn>
           <v-btn text @click="switchPage(4)">Youtube</v-btn>
           <v-btn text @click="switchPage(5)">Calculator</v-btn>
-          <v-btn text @click="switchPage(6)">Treeview</v-btn>
+          <v-btn text @click="switchPage(6)">Chart</v-btn>
+          <v-btn text @click="switchPage(7)">Treeview</v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-content>
@@ -36,7 +37,8 @@
           <Picture v-if="page === 3" />
           <Api v-if="page === 4" />
           <Calculator v-if="page === 5" />
-          <Treeview v-if="page === 6" />
+          <Chart v-if="page === 6" />
+          <Treeview v-if="page === 7" />
         </v-card>
       </v-content>
     </v-app>
@@ -51,9 +53,15 @@ import DateTime from "./components/DateTime";
 import Picture from "./components/Picture";
 import TodoList from "./components/TodoList";
 import Treeview from "./components/Treeview";
+import Chart from "./components/Chart";
 
 export default {
   name: "App",
+  data: () => ({
+    page: 0,
+    //ハンバーガーメニューの表示/非表示を制御
+    isShowDrawer: false
+  }),
   components: {
     DateTime,
     TodoList,
@@ -61,15 +69,8 @@ export default {
     Picture,
     Api,
     Calculator,
-    Treeview
-  },
-  data: () => ({
-    page: 0,
-    //ハンバーガーメニューの表示/非表示を制御
-    isShowDrawer: false
-  }),
-  computed: {
-    //
+    Treeview,
+    Chart
   },
   mounted() {
     this.switchPage();
