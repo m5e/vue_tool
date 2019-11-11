@@ -19,26 +19,59 @@ export default {
           plotShadow: false,
           type: "pie"
         },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: "pointer",
+            dataLabels: {
+              enabled: false
+            },
+            showInLegend: true
+          }
+        },
         exporting: {
-          enabled: false
+          enabled: true
         },
         title: {
-          text: ""
+          text: "人口密度(万人)"
+        },
+        tooltip: {
+          pointFormat: "{data.name}<b>{point.percentage:.1f}%</b>"
         },
         series: [
           {
             data: [
               {
-                name: "test",
-                y: 29.9
+                name: "関東",
+                y: 33
               },
               {
-                name: "test2",
-                y: 29.9
+                name: "近畿",
+                y: 18
               },
               {
-                name: "test3",
-                y: 29.94
+                name: "中部",
+                y: 17
+              },
+              {
+                name: "九州",
+                y: 12
+              },
+              {
+                name: "東北",
+                y: 9
+              },
+              {
+                name: "中国",
+                y: 6
+              },
+              {
+                name: "北海道",
+                y: 4
+              },
+              {
+                name: "四国",
+                y: 3
               }
             ]
           }
