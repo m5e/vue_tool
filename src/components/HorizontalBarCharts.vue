@@ -22,7 +22,10 @@ export default {
         },
         // 横軸
         xAxis: {
-          categories: ["1", "2", "3"]
+          categories: ["Japan", "America", "Itary"],
+          title: {
+            text: null
+          }
         },
         // 縦軸
         yAxis: {
@@ -36,6 +39,13 @@ export default {
               color: "#808080"
             }
           ]
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
         },
         labels: {
           overflow: "justify"

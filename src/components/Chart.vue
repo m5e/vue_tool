@@ -3,7 +3,7 @@
     <v-flex>
       <LineGraph />
       <v-divider class="mt-8 mb-8" />
-      <BarCharts />
+      <HorizontalBar />
       <v-divider class="mt-8 mb-8" />
       <PieCharts />
     </v-flex>
@@ -24,7 +24,7 @@
   </v-layout>
 </template>
 <script>
-import BarCharts from "./BarCharts";
+import HorizontalBar from "./HorizontalBarCharts";
 import common from "./../util/common";
 import LineGraph from "./LineGraph";
 import PieCharts from "./PieCharts";
@@ -39,7 +39,7 @@ export default {
   components: {
     LineGraph,
     PieCharts,
-    BarCharts
+    HorizontalBar
   }
 };
 </script>
