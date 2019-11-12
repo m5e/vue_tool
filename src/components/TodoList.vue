@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-img class="background-image pt-10" src="./../images/IMG_000.jpg">
+  <v-img class="background-image pt-10" src="./../images/IMG_000.jpg">
+    <v-container>
       <v-text-field
         v-model="task"
         label="Enter the task name to create"
@@ -27,7 +27,10 @@
       <v-divider class="mb-4" />
 
       <v-col cols="12">
-        <v-btn outlined color="black" @click="deleteTasks">delete</v-btn>
+        <v-btn color="blue-grey lighten-2" @click="deleteTasks">delete</v-btn>
+        <v-btn class="ml-8" color="primary" @click="sortTodoTasks">in Progress</v-btn>
+        <v-btn class="ml-8" color="error" @click="sortDoneTasks">Done</v-btn>
+        <v-btn class="ml-8" color="success" @click="resetShowTasks">Reset</v-btn>
       </v-col>
       <v-snackbar
         v-model="snackbar.showSnackbar"
@@ -36,7 +39,11 @@
         top
       >{{ this.snackbar.message }}</v-snackbar>
 
-      <v-card v-if="tasks.length > 0" outlined class="task-lists mt-4">
+      <v-card
+        v-if="tasks.length > 0 && this.isShowTaskType === 'default'"
+        outlined
+        class="task-lists mt-4"
+      >
         <v-slide-y-transition class="py-0" group>
           <template v-for="(task, i) in tasks">
             <v-divider v-if="i !== 0" :key="`${i}-divider`" />
@@ -63,8 +70,40 @@
           </template>
         </v-slide-y-transition>
       </v-card>
-    </v-img>
-  </v-container>
+
+      <v-card
+        v-if="isShowTaskType.length > 0 && this.isShowTaskType === 'sort'"
+        outlined
+        class="task-lists mt-4"
+      >
+        <v-slide-y-transition class="py-0" group>
+          <template v-for="(task, i) in sortedTasks">
+            <v-divider v-if="i !== 0" :key="`${i}-divider`" />
+
+            <v-list-item :key="`${i}-${task.text}`">
+              <v-list-item-action>
+                <v-checkbox v-model="task.done" color="black">
+                  <template v-slot:label>
+                    <div
+                      :class="task.done && 'grey--text' || 'text--primary'"
+                      class="font-weight-bold ml-4"
+                      v-text="task.text"
+                    />
+                  </template>
+                </v-checkbox>
+              </v-list-item-action>
+
+              <v-spacer />
+
+              <v-scroll-x-transition>
+                <v-icon v-if="task.done" color="black">done</v-icon>
+              </v-scroll-x-transition>
+            </v-list-item>
+          </template>
+        </v-slide-y-transition>
+      </v-card>
+    </v-container>
+  </v-img>
 </template>
 
 <script>
@@ -73,6 +112,8 @@ export default {
     // ローカルストレージへ保存する際のキー名
     STRAGE_KEY: "vue-tasks-key",
     tasks: [],
+    sortedTasks: [],
+    isShowTaskType: "default",
     task: null,
     snackbar: {
       showSnackbar: false,
@@ -137,6 +178,20 @@ export default {
       }
 
       localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks));
+    },
+    // 未済のタスク
+    sortTodoTasks() {
+      this.isShowTaskType = "sort";
+      this.sortedTasks = this.tasks.filter(task => !task.done);
+    },
+    // 実施済みのタスク
+    sortDoneTasks() {
+      this.isShowTaskType = "sort";
+      this.sortedTasks = this.tasks.filter(task => task.done);
+    },
+    // ソート解除
+    resetShowTasks() {
+      this.isShowTaskType = "default";
     }
   }
 };
