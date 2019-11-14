@@ -72,10 +72,9 @@
       </v-card>
 
       <v-card
-        v-show="isShowTaskType.length > 0 && this.isShowTaskType === 'sort'"
+        v-if="sortedTasks.length > 0 && this.isShowTaskType === 'sortProgress'"
         outlined
         class="task-lists mt-4"
-        :class="{ inactive: isInActive }"
       >
         <v-slide-y-transition class="py-0" group>
           <template v-for="(task, i) in sortedTasks">
@@ -83,7 +82,39 @@
 
             <v-list-item :key="`${i}-${task.text}`">
               <v-list-item-action>
-                <v-checkbox v-model="task.done" color="black">
+                <v-checkbox v-model="task.done" @change="checkTaskStatus(task)" color="black">
+                  <template v-slot:label>
+                    <div
+                      :class="task.done && 'grey--text' || 'text--primary'"
+                      class="font-weight-bold ml-4"
+                      v-text="task.text"
+                    />
+                  </template>
+                </v-checkbox>
+              </v-list-item-action>
+
+              <v-spacer />
+
+              <v-scroll-x-transition>
+                <v-icon v-if="task.done" color="black">done</v-icon>
+              </v-scroll-x-transition>
+            </v-list-item>
+          </template>
+        </v-slide-y-transition>
+      </v-card>
+
+      <v-card
+        v-if="sortedTasks.length > 0 && this.isShowTaskType === 'sortDone'"
+        outlined
+        class="task-lists mt-4"
+      >
+        <v-slide-y-transition class="py-0" group>
+          <template v-for="(task, i) in sortedTasks">
+            <v-divider v-if="i !== 0" :key="`${i}-divider`" />
+
+            <v-list-item :key="`${i}-${task.text}`">
+              <v-list-item-action>
+                <v-checkbox v-model="task.done" @change="checkTaskStatus(task)" color="black">
                   <template v-slot:label>
                     <div
                       :class="task.done && 'grey--text' || 'text--primary'"
@@ -120,8 +151,7 @@ export default {
       showSnackbar: false,
       message: "削除対象のタスクが選択されていません",
       timeout: 2000
-    },
-    isInActive: false
+    }
   }),
   computed: {
     // 残タスク数を集計
@@ -159,6 +189,14 @@ export default {
         text: this.task
       });
 
+      // 未済のタスクをソート中にタスクが追加された際、表示されているリストに追加
+      if (this.isShowTaskType === "sortProgress") {
+        this.sortedTasks.push({
+          done: false,
+          text: this.task
+        });
+      }
+
       localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks));
 
       // 入力欄の初期化
@@ -167,6 +205,7 @@ export default {
     // タスク削除
     deleteTasks() {
       this.snackbar.showSnackbar = false;
+      this.isShowTaskType = "default";
 
       const isCompletedTask = this.tasks.some(task => task.done === true);
       if (!isCompletedTask) {
@@ -184,20 +223,28 @@ export default {
     // 未済のタスク
     sortTodoTasks() {
       this.isInActive = false;
-      this.isShowTaskType = "sort";
+      this.isShowTaskType = "sortProgress";
       this.sortedTasks = this.tasks.filter(task => !task.done);
       if (this.sortedTasks.length <= 0) this.isInActive = true;
     },
     // 実施済みのタスク
     sortDoneTasks() {
       this.isInActive = false;
-      this.isShowTaskType = "sort";
+      this.isShowTaskType = "sortDone";
       this.sortedTasks = this.tasks.filter(task => task.done);
       if (this.sortedTasks.length <= 0) this.isInActive = true;
     },
-    // ソート解除
     resetShowTasks() {
       this.isShowTaskType = "default";
+    },
+    checkTaskStatus(task) {
+      if (this.isShowTaskType === "sortProgress" && task.done) {
+        this.sortTodoTasks();
+      } else if (this.isShowTaskType === "sortDone" && !task.done) {
+        this.sortDoneTasks();
+      } else {
+        // DO NOTHING
+      }
     }
   }
 };
@@ -215,8 +262,5 @@ export default {
 }
 .task-lists {
   opacity: 0.7;
-}
-.inactive {
-  display: none;
 }
 </style>
