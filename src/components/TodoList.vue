@@ -72,9 +72,10 @@
       </v-card>
 
       <v-card
-        v-if="isShowTaskType.length > 0 && this.isShowTaskType === 'sort'"
+        v-show="isShowTaskType.length > 0 && this.isShowTaskType === 'sort'"
         outlined
         class="task-lists mt-4"
+        :class="{ inactive: isInActive }"
       >
         <v-slide-y-transition class="py-0" group>
           <template v-for="(task, i) in sortedTasks">
@@ -119,7 +120,8 @@ export default {
       showSnackbar: false,
       message: "削除対象のタスクが選択されていません",
       timeout: 2000
-    }
+    },
+    isInActive: false
   }),
   computed: {
     // 残タスク数を集計
@@ -181,13 +183,17 @@ export default {
     },
     // 未済のタスク
     sortTodoTasks() {
+      this.isInActive = false;
       this.isShowTaskType = "sort";
       this.sortedTasks = this.tasks.filter(task => !task.done);
+      if (this.sortedTasks.length <= 0) this.isInActive = true;
     },
     // 実施済みのタスク
     sortDoneTasks() {
+      this.isInActive = false;
       this.isShowTaskType = "sort";
       this.sortedTasks = this.tasks.filter(task => task.done);
+      if (this.sortedTasks.length <= 0) this.isInActive = true;
     },
     // ソート解除
     resetShowTasks() {
@@ -209,5 +215,8 @@ export default {
 }
 .task-lists {
   opacity: 0.7;
+}
+.inactive {
+  display: none;
 }
 </style>
