@@ -1,0 +1,60 @@
+{
+  "name": "vue_tool",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "st": "vue-cli-service serve",
+    "bu": "vue-cli-service build",
+    "li": "vue-cli-service lint --no-fix",
+    "se": "node ./src/server/index.js"
+  },
+  "dependencies": {
+    "axios": "0.19.0",
+    "babel-polyfill": "6.26.0",
+    "core-js": "2.6.5",
+    "dns": "0.2.2",
+    "express": "4.17.1",
+    "highcharts": "7.2.1",
+    "highcharts-vue": "1.3.5",
+    "vue": "2.6.10",
+    "vuetify": "2.1.0",
+    "youtube-node": "1.3.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "3.12.0",
+    "@vue/cli-plugin-eslint": "3.12.0",
+    "@vue/cli-service": "3.12.0",
+    "babel-eslint": "10.0.1",
+    "eslint": "5.16.0",
+    "eslint-plugin-vue": "5.2.3",
+    "material-design-icons-iconfont": "5.0.1",
+    "sass": "1.17.4",
+    "sass-loader": "7.1.0",
+    "vue-cli-plugin-vuetify": "1.1.0",
+    "vue-template-compiler": "2.6.10",
+    "vuetify-loader": "1.2.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
