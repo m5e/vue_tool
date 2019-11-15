@@ -28,8 +28,8 @@
 
       <v-col cols="12">
         <v-btn color="blue-grey lighten-2" @click="deleteTasks">delete</v-btn>
-        <v-btn class="ml-8" color="primary" @click="sortTodoTasks">in Progress</v-btn>
-        <v-btn class="ml-8" color="error" @click="sortDoneTasks">Done</v-btn>
+        <v-btn class="ml-8" color="primary" @click="sortTasks('progress')">in Progress</v-btn>
+        <v-btn class="ml-8" color="error" @click="sortTasks('done')">Done</v-btn>
         <v-btn class="ml-8" color="success" @click="resetShowTasks">Reset</v-btn>
       </v-col>
       <v-snackbar
@@ -72,39 +72,8 @@
       </v-card>
 
       <v-card
-        v-if="sortedTasks.length > 0 && this.isShowTaskType === 'sortProgress'"
-        outlined
-        class="task-lists mt-4"
-      >
-        <v-slide-y-transition class="py-0" group>
-          <template v-for="(task, i) in sortedTasks">
-            <v-divider v-if="i !== 0" :key="`${i}-divider`" />
-
-            <v-list-item :key="`${i}-${task.text}`">
-              <v-list-item-action>
-                <v-checkbox v-model="task.done" @change="checkTaskStatus(task)" color="black">
-                  <template v-slot:label>
-                    <div
-                      :class="task.done && 'grey--text' || 'text--primary'"
-                      class="font-weight-bold ml-4"
-                      v-text="task.text"
-                    />
-                  </template>
-                </v-checkbox>
-              </v-list-item-action>
-
-              <v-spacer />
-
-              <v-scroll-x-transition>
-                <v-icon v-if="task.done" color="black">done</v-icon>
-              </v-scroll-x-transition>
-            </v-list-item>
-          </template>
-        </v-slide-y-transition>
-      </v-card>
-
-      <v-card
-        v-if="sortedTasks.length > 0 && this.isShowTaskType === 'sortDone'"
+        v-if="( sortedTasks.length > 0 && this.isShowTaskType === 'progress' )
+          || ( sortedTasks.length > 0 && this.isShowTaskType === 'done' )"
         outlined
         class="task-lists mt-4"
       >
@@ -180,7 +149,6 @@ export default {
 
       this.tasks = tasksStrage;
     },
-    // タスク追加
     createTask() {
       if (!this.task || !this.task.trim()) return;
 
@@ -190,7 +158,7 @@ export default {
       });
 
       // 未済のタスクをソート中にタスクが追加された際、表示されているリストに追加
-      if (this.isShowTaskType === "sortProgress") {
+      if (this.isShowTaskType === "progress") {
         this.sortedTasks.push({
           done: false,
           text: this.task
@@ -202,7 +170,6 @@ export default {
       // 入力欄の初期化
       this.task = null;
     },
-    // タスク削除
     deleteTasks() {
       this.snackbar.showSnackbar = false;
       this.isShowTaskType = "default";
@@ -220,28 +187,26 @@ export default {
 
       localStorage.setItem(this.STRAGE_KEY, JSON.stringify(this.tasks));
     },
-    // 未済のタスク
-    sortTodoTasks() {
+    sortTasks(type) {
       this.isInActive = false;
-      this.isShowTaskType = "sortProgress";
-      this.sortedTasks = this.tasks.filter(task => !task.done);
-      if (this.sortedTasks.length <= 0) this.isInActive = true;
-    },
-    // 実施済みのタスク
-    sortDoneTasks() {
-      this.isInActive = false;
-      this.isShowTaskType = "sortDone";
+      this.isShowTaskType = type;
+
+      if (this.isShowTaskType === "progress") {
+        this.sortedTasks = this.tasks.filter(task => !task.done);
+        if (this.sortedTasks.length <= 0) this.isInActive = true;
+      } else if (this.isShowTaskType === "done") {
       this.sortedTasks = this.tasks.filter(task => task.done);
       if (this.sortedTasks.length <= 0) this.isInActive = true;
+      }
     },
     resetShowTasks() {
       this.isShowTaskType = "default";
     },
     checkTaskStatus(task) {
-      if (this.isShowTaskType === "sortProgress" && task.done) {
-        this.sortTodoTasks();
-      } else if (this.isShowTaskType === "sortDone" && !task.done) {
-        this.sortDoneTasks();
+      if (this.isShowTaskType === "progress" && task.done) {
+        this.sortTasks('progress');
+      } else if (this.isShowTaskType === "done" && !task.done) {
+        this.sortTasks('done');
       } else {
         // DO NOTHING
       }
