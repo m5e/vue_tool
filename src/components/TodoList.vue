@@ -193,22 +193,20 @@ export default {
 
       if (this.isShowTaskType === "progress") {
         this.sortedTasks = this.tasks.filter(task => !task.done);
-        if (this.sortedTasks.length <= 0) this.isInActive = true;
       } else if (this.isShowTaskType === "done") {
-      this.sortedTasks = this.tasks.filter(task => task.done);
-      if (this.sortedTasks.length <= 0) this.isInActive = true;
+        this.sortedTasks = this.tasks.filter(task => task.done);
       }
+
+      if (this.sortedTasks.length <= 0) this.isInActive = true;
     },
     resetShowTasks() {
       this.isShowTaskType = "default";
     },
     checkTaskStatus(task) {
       if (this.isShowTaskType === "progress" && task.done) {
-        this.sortTasks('progress');
+        this.sortTasks("progress");
       } else if (this.isShowTaskType === "done" && !task.done) {
-        this.sortTasks('done');
-      } else {
-        // DO NOTHING
+        this.sortTasks("done");
       }
     }
   }
