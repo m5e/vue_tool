@@ -23,6 +23,7 @@
           <v-btn text @click="switchPage(1)">Todo</v-btn>
           <v-btn text @click="switchPage(2)">Calendar</v-btn>
           <v-btn text @click="switchPage(3)">picture</v-btn>
+          <v-btn text @click="switchPage(4)">Youtube</v-btn>
           <v-btn text @click="switchPage(5)">Calculator</v-btn>
           <v-btn text @click="switchPage(6)">Chart</v-btn>
           <v-btn text @click="switchPage(7)">Treeview</v-btn>
@@ -34,6 +35,7 @@
           <TodoList v-if="page === 1" />
           <Calendar v-if="page === 2" />
           <Picture v-if="page === 3" />
+          <Api v-if="page === 4" />
           <Calculator v-if="page === 5" />
           <Chart v-if="page === 6" />
           <Treeview v-if="page === 7" />
@@ -44,6 +46,7 @@
 </template>
 
 <script>
+import Api from "./components/Api";
 import Calculator from "./components/Calculator";
 import Calendar from "./components/Calendar";
 import DateTime from "./components/DateTime";
@@ -64,6 +67,7 @@ export default {
     TodoList,
     Calendar,
     Picture,
+    Api,
     Calculator,
     Treeview,
     Chart
