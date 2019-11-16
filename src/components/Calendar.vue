@@ -14,7 +14,15 @@
       color="primary"
       :events="holidaysList"
       :event-color="getHolidayColor"
+      @click:date="clickDate"
     />
+    <v-dialog v-model="isShowDateDialog" max-width="330px">
+      <v-card>
+        <v-card-title>{{ selectedDate }}</v-card-title>
+        <v-spacer />
+        <v-btn @click="isShowDateDialog = false" outlined color="green">close</v-btn>
+      </v-card>
+    </v-dialog>
   </v-sheet>
 </template>
 
@@ -22,8 +30,11 @@
 export default {
   data: () => ({
     //prev(),next() の実行に必要
-    start: "",
-    holidaysList: []
+    start: null,
+    end: null,
+    holidaysList: [],
+    selectedDate: "",
+    isShowDateDialog: false
   }),
 
   mounted() {
@@ -50,10 +61,13 @@ export default {
         });
       });
     },
-
     // 祝日の色を指定
     getHolidayColor(event) {
       return event.color;
+    },
+    clickDate() {
+      this.selectedDate = this.start;
+      this.isShowDateDialog = true;
     }
   }
 };
