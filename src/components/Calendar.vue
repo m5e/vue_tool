@@ -19,28 +19,21 @@
     <v-dialog v-model="isShowDateDialog" max-width="350px">
       <v-card height="210px">
         <v-toolbar flat color="primary">
-          <v-row>
-            <v-toolbar-title>
-              <v-btn text rounded @click="switchInputLimit(false)">
-                <i class="material-icons">create</i>
-              </v-btn>
-            </v-toolbar-title>
+          <v-spacer />
 
-            <v-spacer />
-
-            <v-toolbar-items>
-              <v-btn @click="isShowDateDialog = false" rounded text>
-                <i class="material-icons">clear</i>
-              </v-btn>
-            </v-toolbar-items>
-          </v-row>
+          <v-toolbar-items>
+            <v-btn @click="closeDialog" rounded text>
+              <i class="material-icons">clear</i>
+            </v-btn>
+          </v-toolbar-items>
         </v-toolbar>
         <v-card-title>{{ selectedDate }}</v-card-title>
         <v-text-field
-          label="Outlined"
+          label="Title"
           outlined
           :filled="isFilled"
-          :readonly="isReadonly"
+          placeholder="タイトルを追加してください"
+          @click="isFilled = false"
           @keydown.enter="addHolidayList"
           v-model="plan"
         ></v-text-field>
@@ -59,7 +52,6 @@ export default {
     holidaysList: [],
     selectedDate: "",
     isShowDateDialog: false,
-    isReadonly: true,
     isFilled: true,
     plan: ""
   }),
@@ -96,10 +88,6 @@ export default {
       this.selectedDate = this.start;
       this.isShowDateDialog = true;
     },
-    switchInputLimit(limit) {
-      this.isReadonly = limit;
-      this.isFilled = limit;
-    },
     addHolidayList() {
       this.holidaysList.push({
         name: this.plan,
@@ -109,9 +97,11 @@ export default {
         color: "primary"
       });
 
+      this.closeDialog();
+    },
+    closeDialog() {
       this.plan = "";
-
-      this.switchInputLimit(true);
+      this.isFilled = true;
       this.isShowDateDialog = false;
     }
   }
