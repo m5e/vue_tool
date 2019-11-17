@@ -29,7 +29,7 @@
             <v-spacer />
 
             <v-toolbar-items>
-              <v-btn @click="switchInputLimit(true)" rounded text>
+              <v-btn @click="isShowDateDialog = false" rounded text>
                 <i class="material-icons">clear</i>
               </v-btn>
             </v-toolbar-items>
@@ -109,9 +109,10 @@ export default {
         color: "primary"
       });
 
-      // ダイアログを閉じる
-      this.isShowDateDialog = false;
+      this.plan = "";
+
       this.switchInputLimit(true);
+      this.isShowDateDialog = false;
     }
   }
 };
